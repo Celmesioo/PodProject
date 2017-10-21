@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.16
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserInterface", "UserInterface\UserInterface.csproj", "{A2B9003B-FFFE-444C-A182-345595A224DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{9F328D8B-8E6C-4E73-ABDA-ABDC5510082C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logic", "Logic\Logic.csproj", "{0D26060D-E9FF-4A17-BC05-4EAFE588EAF4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A2B9003B-FFFE-444C-A182-345595A224DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2B9003B-FFFE-444C-A182-345595A224DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2B9003B-FFFE-444C-A182-345595A224DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2B9003B-FFFE-444C-A182-345595A224DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F328D8B-8E6C-4E73-ABDA-ABDC5510082C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F328D8B-8E6C-4E73-ABDA-ABDC5510082C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F328D8B-8E6C-4E73-ABDA-ABDC5510082C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F328D8B-8E6C-4E73-ABDA-ABDC5510082C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D26060D-E9FF-4A17-BC05-4EAFE588EAF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D26060D-E9FF-4A17-BC05-4EAFE588EAF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D26060D-E9FF-4A17-BC05-4EAFE588EAF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D26060D-E9FF-4A17-BC05-4EAFE588EAF4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2F378D33-2FF9-4347-BA50-39D88A58D643}
+	EndGlobalSection
+EndGlobal
