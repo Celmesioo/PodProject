@@ -95,6 +95,8 @@
             // 
             this.cmbBoxCategories.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbBoxCategories.FormattingEnabled = true;
+            this.cmbBoxCategories.Items.AddRange(new object[] {
+            "Övrigt"});
             this.cmbBoxCategories.Location = new System.Drawing.Point(94, 117);
             this.cmbBoxCategories.Name = "cmbBoxCategories";
             this.cmbBoxCategories.Size = new System.Drawing.Size(128, 21);

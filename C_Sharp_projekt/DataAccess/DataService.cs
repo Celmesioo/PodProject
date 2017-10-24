@@ -23,6 +23,7 @@ namespace DataAccess
         {
             private string _XmlPath;
             private List<T> _items = new List<T>();
+            private List<String> _categories = new List<string>();
 
             public XmlRepository(string pathToXml)
             {
@@ -31,6 +32,10 @@ namespace DataAccess
                 if (File.Exists(path + _XmlPath))
                 {
                     _items = LoadItems();
+                }
+                if (File.Exists(path + "Categories.xml"))
+                {
+                    _categories = LoadCategories();
                 }
             }
 
@@ -53,6 +58,26 @@ namespace DataAccess
                 SaveXml(stringwriter.ToString(), "Podcasts");
             }
 
+            private List<string> LoadCategories()
+            {
+                var serializer = new XmlSerializer(typeof(List<string>));
+                using (var stream = new StreamReader(path + "Categories.xml"))
+                {
+                    var categories = (List<string>)serializer.Deserialize(stream);
+                    return categories;
+                }
+            }
+            private void SaveCategories()
+            {
+                XmlSerializer serializer = new XmlSerializer(typeof(List<string>));
+
+                var stringwriter = new StringWriter();
+                serializer.Serialize(stringwriter, _categories);
+                SaveXml(stringwriter.ToString(), "Categories");
+            }
+
+            
+
             private static void SaveXml(string xml, string name)
             {
                 if (Directory.Exists(path) == false)
@@ -70,6 +95,17 @@ namespace DataAccess
                         writer.Write(xml);
                     }
                 }
+            }
+
+            public void AddCategory(String c)
+            {
+                _categories.Add(c);
+                SaveCategories();
+            }
+
+            public List<string> GetCategories()
+            {
+                return _categories;
             }
 
             public void Add(T item)

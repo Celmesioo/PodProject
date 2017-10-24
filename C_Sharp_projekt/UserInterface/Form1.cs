@@ -51,7 +51,6 @@ namespace UserInterface
         private void Form1_Load(object sender, EventArgs e)
         {
             podcastService.LoadPodcasts();
-            podcastService.AddDefaultCategory();
             UpdateCategories();
             cmbBoxInterval.SelectedIndex = 0;
         }
@@ -66,6 +65,12 @@ namespace UserInterface
 
         private void UpdateCategories()
         {
+            if (podcastService.GetCategories().Count == 0)
+            {
+                podcastService.AddDefaultCategory();
+                cmbBoxCategories.SelectedIndex = 0;
+                return;
+            }
             cmbBoxCategories.Items.Clear();
             foreach (var item in podcastService.GetCategories())
             {

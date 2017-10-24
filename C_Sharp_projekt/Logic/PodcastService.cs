@@ -27,19 +27,19 @@ namespace Logic
 
         public void AddDefaultCategory()
         {
-            categories.Add("Övrigt");
+            podcasts.AddCategory("Övrigt");
         }
 
         public void AddCategory(string input)
         {
             if (validator.Category_does_not_exist(input, categories))
             {
-                categories.Add(input);
+                podcasts.AddCategory(input);
             }
         }
         public List<String> GetCategories()
         {
-            return categories;
+            return podcasts.GetCategories();
         }
 
         public void LoadPodcasts()
