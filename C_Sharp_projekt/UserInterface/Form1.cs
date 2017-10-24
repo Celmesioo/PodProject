@@ -53,6 +53,7 @@ namespace UserInterface
             podcastService.LoadPodcasts();
             UpdateCategories();
             cmbBoxInterval.SelectedIndex = 0;
+            grpBoxPodPreview.Visible = false;
         }
 
         private void BtnNewCategory_Click(object sender, EventArgs e)
@@ -81,7 +82,8 @@ namespace UserInterface
 
         private void treeViewPodcasts_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            if(treeViewPodcasts.SelectedNode.Nodes.Count == 0)
+            grpBoxPodPreview.Visible = true;
+            if (treeViewPodcasts.SelectedNode.Nodes.Count == 0)
             {
                 string titel = treeViewPodcasts.SelectedNode.Text;
                 lblEpisodeTitle.Text = titel;
@@ -94,6 +96,13 @@ namespace UserInterface
         private void lnkLblDownloadEpisode_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start(linkUrl);
+        }
+
+        private void BtnDeleteCategory_Click(object sender, EventArgs e)
+        {
+            string toDelete = cmbBoxCategories.Text;
+            podcastService.DeleteCategory(toDelete);
+            UpdateCategories();
         }
     }
 }

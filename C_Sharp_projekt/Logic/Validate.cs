@@ -48,5 +48,16 @@ namespace Logic
             }
             return true;
         }
+
+        internal bool If_not_default_category(string toDelete)
+        {
+            string default_category = "övrigt";
+            if (default_category.ToUpper().Equals(toDelete.ToUpper()))
+            {
+                throw new ApplicationException("Övrigt kategorin kan inte raderas");
+            }
+
+            return true;
+        }
     }
 }

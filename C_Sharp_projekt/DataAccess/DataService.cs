@@ -140,7 +140,13 @@ namespace DataAccess
                     }
                 }
                 return default(T);
-            }       
+            }
+
+            public void RemoveCategory(string toDelete)
+            {
+                _categories.Remove(toDelete);
+                SaveCategories();
+            }
         }
         public static Dictionary<string, string> Get_episode_title_n_link(String url)
         {

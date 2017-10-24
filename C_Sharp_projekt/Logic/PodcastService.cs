@@ -99,5 +99,13 @@ namespace Logic
             Podcast selectedPod = podcasts.GetByName(podname);
             return selectedPod.GetSpecificEpisodeLink(titel);
         }
+
+        public void DeleteCategory(string toDelete)
+        {
+            if (validator.If_not_default_category(toDelete))
+            {
+                podcasts.RemoveCategory(toDelete);
+            }
+        }
     }
 }

@@ -44,6 +44,7 @@
             this.grpBoxPodPreview = new System.Windows.Forms.GroupBox();
             this.lblEpisodeTitle = new System.Windows.Forms.Label();
             this.lnkLblDownloadEpisode = new System.Windows.Forms.LinkLabel();
+            this.BtnDeleteCategory = new System.Windows.Forms.Button();
             this.grpBoxPodPreview.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -180,7 +181,6 @@
             this.grpBoxPodPreview.Size = new System.Drawing.Size(466, 239);
             this.grpBoxPodPreview.TabIndex = 13;
             this.grpBoxPodPreview.TabStop = false;
-            this.grpBoxPodPreview.Text = "groupBox1";
             // 
             // lblEpisodeTitle
             // 
@@ -203,11 +203,22 @@
             this.lnkLblDownloadEpisode.Text = "Ladda Ner";
             this.lnkLblDownloadEpisode.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkLblDownloadEpisode_LinkClicked);
             // 
+            // BtnDeleteCategory
+            // 
+            this.BtnDeleteCategory.Location = new System.Drawing.Point(94, 154);
+            this.BtnDeleteCategory.Name = "BtnDeleteCategory";
+            this.BtnDeleteCategory.Size = new System.Drawing.Size(100, 23);
+            this.BtnDeleteCategory.TabIndex = 14;
+            this.BtnDeleteCategory.Text = "Radera kategori";
+            this.BtnDeleteCategory.UseVisualStyleBackColor = true;
+            this.BtnDeleteCategory.Click += new System.EventHandler(this.BtnDeleteCategory_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1100, 527);
+            this.Controls.Add(this.BtnDeleteCategory);
             this.Controls.Add(this.grpBoxPodPreview);
             this.Controls.Add(this.BtnNewCategory);
             this.Controls.Add(this.txtBoxNewCategory);
@@ -250,6 +261,7 @@
         private System.Windows.Forms.GroupBox grpBoxPodPreview;
         private System.Windows.Forms.LinkLabel lnkLblDownloadEpisode;
         private System.Windows.Forms.Label lblEpisodeTitle;
+        private System.Windows.Forms.Button BtnDeleteCategory;
     }
 }
 
