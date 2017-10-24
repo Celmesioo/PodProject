@@ -104,10 +104,8 @@ namespace DataAccess
                     }
                 }
                 return default(T);
-            }
-            
+            }       
         }
-
         public static Dictionary<string, string> Get_episode_title_n_link(String url)
         {
             var xml = String.Empty;
@@ -115,6 +113,7 @@ namespace DataAccess
 
             using (var client = new WebClient())
             {
+                client.Encoding = Encoding.UTF8;
                 xml = client.DownloadString(url);
             }
 
@@ -130,8 +129,6 @@ namespace DataAccess
             }
             return episodes;
         }
-
-        
     }
 
     

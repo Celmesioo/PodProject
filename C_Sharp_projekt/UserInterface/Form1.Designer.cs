@@ -38,13 +38,16 @@
             this.BtnAddRss = new System.Windows.Forms.Button();
             this.treeViewPodcasts = new System.Windows.Forms.TreeView();
             this.BtnShowAllPods = new System.Windows.Forms.Button();
+            this.cmbBoxInterval = new System.Windows.Forms.ComboBox();
+            this.txtBoxNewCategory = new System.Windows.Forms.TextBox();
+            this.BtnNewCategory = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtBoxUrl
             // 
             this.txtBoxUrl.Location = new System.Drawing.Point(94, 41);
             this.txtBoxUrl.Name = "txtBoxUrl";
-            this.txtBoxUrl.Size = new System.Drawing.Size(367, 20);
+            this.txtBoxUrl.Size = new System.Drawing.Size(417, 20);
             this.txtBoxUrl.TabIndex = 0;
             // 
             // lblUrl
@@ -78,7 +81,7 @@
             // 
             this.lblCategory.AutoSize = true;
             this.lblCategory.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCategory.Location = new System.Drawing.Point(29, 126);
+            this.lblCategory.Location = new System.Drawing.Point(29, 117);
             this.lblCategory.Name = "lblCategory";
             this.lblCategory.Size = new System.Drawing.Size(65, 17);
             this.lblCategory.TabIndex = 4;
@@ -86,12 +89,9 @@
             // 
             // cmbBoxCategories
             // 
+            this.cmbBoxCategories.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbBoxCategories.FormattingEnabled = true;
-            this.cmbBoxCategories.Items.AddRange(new object[] {
-            "Musik",
-            "Nöje",
-            "Programmering"});
-            this.cmbBoxCategories.Location = new System.Drawing.Point(94, 122);
+            this.cmbBoxCategories.Location = new System.Drawing.Point(94, 117);
             this.cmbBoxCategories.Name = "cmbBoxCategories";
             this.cmbBoxCategories.Size = new System.Drawing.Size(128, 21);
             this.cmbBoxCategories.TabIndex = 5;
@@ -100,15 +100,15 @@
             // 
             this.lblUpdateInterval.AutoSize = true;
             this.lblUpdateInterval.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUpdateInterval.Location = new System.Drawing.Point(240, 78);
+            this.lblUpdateInterval.Location = new System.Drawing.Point(228, 79);
             this.lblUpdateInterval.Name = "lblUpdateInterval";
-            this.lblUpdateInterval.Size = new System.Drawing.Size(146, 17);
+            this.lblUpdateInterval.Size = new System.Drawing.Size(178, 17);
             this.lblUpdateInterval.TabIndex = 6;
-            this.lblUpdateInterval.Text = "Uppdateringsintervall:";
+            this.lblUpdateInterval.Text = "Uppdateringsintervall(min):";
             // 
             // BtnAddRss
             // 
-            this.BtnAddRss.Location = new System.Drawing.Point(252, 122);
+            this.BtnAddRss.Location = new System.Drawing.Point(241, 117);
             this.BtnAddRss.Name = "BtnAddRss";
             this.BtnAddRss.Size = new System.Drawing.Size(75, 23);
             this.BtnAddRss.TabIndex = 7;
@@ -125,7 +125,7 @@
             // 
             // BtnShowAllPods
             // 
-            this.BtnShowAllPods.Location = new System.Drawing.Point(94, 374);
+            this.BtnShowAllPods.Location = new System.Drawing.Point(362, 117);
             this.BtnShowAllPods.Name = "BtnShowAllPods";
             this.BtnShowAllPods.Size = new System.Drawing.Size(149, 38);
             this.BtnShowAllPods.TabIndex = 9;
@@ -133,11 +133,45 @@
             this.BtnShowAllPods.UseVisualStyleBackColor = true;
             this.BtnShowAllPods.Click += new System.EventHandler(this.BtnShowAllPods_Click);
             // 
+            // cmbBoxInterval
+            // 
+            this.cmbBoxInterval.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbBoxInterval.FormattingEnabled = true;
+            this.cmbBoxInterval.Items.AddRange(new object[] {
+            "5",
+            "10",
+            "30",
+            "60"});
+            this.cmbBoxInterval.Location = new System.Drawing.Point(412, 78);
+            this.cmbBoxInterval.Name = "cmbBoxInterval";
+            this.cmbBoxInterval.Size = new System.Drawing.Size(99, 21);
+            this.cmbBoxInterval.TabIndex = 10;
+            // 
+            // txtBoxNewCategory
+            // 
+            this.txtBoxNewCategory.Location = new System.Drawing.Point(94, 351);
+            this.txtBoxNewCategory.Name = "txtBoxNewCategory";
+            this.txtBoxNewCategory.Size = new System.Drawing.Size(100, 20);
+            this.txtBoxNewCategory.TabIndex = 11;
+            // 
+            // BtnNewCategory
+            // 
+            this.BtnNewCategory.Location = new System.Drawing.Point(200, 349);
+            this.BtnNewCategory.Name = "BtnNewCategory";
+            this.BtnNewCategory.Size = new System.Drawing.Size(104, 23);
+            this.BtnNewCategory.TabIndex = 12;
+            this.BtnNewCategory.Text = "Lägg till kategori";
+            this.BtnNewCategory.UseVisualStyleBackColor = true;
+            this.BtnNewCategory.Click += new System.EventHandler(this.BtnNewCategory_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1100, 527);
+            this.Controls.Add(this.BtnNewCategory);
+            this.Controls.Add(this.txtBoxNewCategory);
+            this.Controls.Add(this.cmbBoxInterval);
             this.Controls.Add(this.BtnShowAllPods);
             this.Controls.Add(this.treeViewPodcasts);
             this.Controls.Add(this.BtnAddRss);
@@ -168,6 +202,9 @@
         private System.Windows.Forms.Button BtnAddRss;
         private System.Windows.Forms.TreeView treeViewPodcasts;
         private System.Windows.Forms.Button BtnShowAllPods;
+        private System.Windows.Forms.ComboBox cmbBoxInterval;
+        private System.Windows.Forms.TextBox txtBoxNewCategory;
+        private System.Windows.Forms.Button BtnNewCategory;
     }
 }
 

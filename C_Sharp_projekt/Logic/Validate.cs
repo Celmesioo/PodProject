@@ -28,5 +28,25 @@ namespace Logic
             }
             return true;
         }
+
+        internal bool Interval_is_valid(string interval)
+        {
+            double result;
+            bool isParseble =  double.TryParse(interval,  out result);
+            return isParseble;
+        }
+
+        internal bool Category_does_not_exist(string input, List<String> list)
+        {
+            foreach (var item in list)
+            {
+                string itemAsUpper = item.ToUpper();
+                if (itemAsUpper.Equals(input.ToUpper()))
+                {
+                    throw new ApplicationException("Den categorin finns redan");
+                }
+            }
+            return true;
+        }
     }
 }

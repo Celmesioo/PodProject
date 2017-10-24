@@ -14,27 +14,48 @@ namespace Logic
         private DataService dataService = new DataService();
         private Validate validator = new Validate();
         private PodcastRepository podcasts = new PodcastRepository();
+        private List<string> categories = new List<string>();
 
 
         public class PodcastRepository : DataService.XmlRepository<Podcast>
         {
-
             public PodcastRepository() : base("Podcasts.xml")
             {
+ 
             }
+        }
+
+        public void AddDefaultCategory()
+        {
+            categories.Add("Övrigt");
+        }
+
+        public void AddCategory(string input)
+        {
+            if (validator.Category_does_not_exist(input, categories))
+            {
+                categories.Add(input);
+            }
+        }
+        public List<String> GetCategories()
+        {
+            return categories;
         }
 
         public void LoadPodcasts()
         {
-            
+            foreach (Podcast pod in podcasts.GetAllInList())
+            {
+                pod.ActivateUpdateInterval();
+            }
         }
 
-        public void AddPodcast(string url, string name)
+        public void AddPodcast(string url, string name, string interval, string category)
         {
-            if (validator.Input_not_empty(url, name))
+            if (validator.Input_not_empty(url, name) && validator.Interval_is_valid(interval))
             {
-                
-                podcasts.Add(CreatePodcast(url, name));
+                double intervalAsDouble = double.Parse(interval);
+                podcasts.Add(CreatePodcast(url, name, intervalAsDouble, category));
             }
             
         }
@@ -66,10 +87,10 @@ namespace Logic
             return episodesArray;
         }
 
-        private Podcast CreatePodcast(string url, string name)
+        private Podcast CreatePodcast(string url, string name, double interval, string category)
         {
             Podcast newPodcast = new Podcast();
-            newPodcast.AddPod(url, name);
+            newPodcast.AddPod(url, name, interval, category);
             return newPodcast;
         }
     }

@@ -19,14 +19,16 @@ namespace UserInterface
             {
                 String rss_url = txtBoxUrl.Text;
                 String rss_name = txtBoxRssName.Text;
+                String interval = cmbBoxInterval.Text;
+                String category = cmbBoxInterval.Text;
 
-                podcastService.AddPodcast(rss_url, rss_name);
+                podcastService.AddPodcast(rss_url, rss_name, interval, category);
                 txtBoxRssName.Clear();
                 txtBoxUrl.Clear();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                MessageBox.Show(ex.ToString());
             }
         }
 
@@ -46,7 +48,28 @@ namespace UserInterface
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+            podcastService.LoadPodcasts();
+            podcastService.AddDefaultCategory();
+            UpdateCategories();
+            cmbBoxInterval.SelectedIndex = 0;
+        }
+
+        private void BtnNewCategory_Click(object sender, EventArgs e)
+        {
+            string category = txtBoxNewCategory.Text;
+            podcastService.AddCategory(category);
+            UpdateCategories();
+            txtBoxNewCategory.Clear();
+        }
+
+        private void UpdateCategories()
+        {
+            cmbBoxCategories.Items.Clear();
+            foreach (var item in podcastService.GetCategories())
+            {
+                cmbBoxCategories.Items.Add(item);
+            }
+            cmbBoxCategories.SelectedIndex = 0;
         }
     }
 }
