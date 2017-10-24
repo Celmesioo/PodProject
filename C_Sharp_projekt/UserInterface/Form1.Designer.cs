@@ -41,6 +41,10 @@
             this.cmbBoxInterval = new System.Windows.Forms.ComboBox();
             this.txtBoxNewCategory = new System.Windows.Forms.TextBox();
             this.BtnNewCategory = new System.Windows.Forms.Button();
+            this.grpBoxPodPreview = new System.Windows.Forms.GroupBox();
+            this.lblEpisodeTitle = new System.Windows.Forms.Label();
+            this.lnkLblDownloadEpisode = new System.Windows.Forms.LinkLabel();
+            this.grpBoxPodPreview.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtBoxUrl
@@ -118,10 +122,11 @@
             // 
             // treeViewPodcasts
             // 
-            this.treeViewPodcasts.Location = new System.Drawing.Point(634, 12);
+            this.treeViewPodcasts.Location = new System.Drawing.Point(634, 238);
             this.treeViewPodcasts.Name = "treeViewPodcasts";
-            this.treeViewPodcasts.Size = new System.Drawing.Size(454, 503);
+            this.treeViewPodcasts.Size = new System.Drawing.Size(454, 277);
             this.treeViewPodcasts.TabIndex = 8;
+            this.treeViewPodcasts.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewPodcasts_AfterSelect);
             // 
             // BtnShowAllPods
             // 
@@ -164,11 +169,44 @@
             this.BtnNewCategory.UseVisualStyleBackColor = true;
             this.BtnNewCategory.Click += new System.EventHandler(this.BtnNewCategory_Click);
             // 
+            // grpBoxPodPreview
+            // 
+            this.grpBoxPodPreview.Controls.Add(this.lnkLblDownloadEpisode);
+            this.grpBoxPodPreview.Controls.Add(this.lblEpisodeTitle);
+            this.grpBoxPodPreview.Location = new System.Drawing.Point(634, -1);
+            this.grpBoxPodPreview.Name = "grpBoxPodPreview";
+            this.grpBoxPodPreview.Size = new System.Drawing.Size(466, 239);
+            this.grpBoxPodPreview.TabIndex = 13;
+            this.grpBoxPodPreview.TabStop = false;
+            this.grpBoxPodPreview.Text = "groupBox1";
+            // 
+            // lblEpisodeTitle
+            // 
+            this.lblEpisodeTitle.AutoSize = true;
+            this.lblEpisodeTitle.Location = new System.Drawing.Point(33, 206);
+            this.lblEpisodeTitle.Name = "lblEpisodeTitle";
+            this.lblEpisodeTitle.Size = new System.Drawing.Size(62, 13);
+            this.lblEpisodeTitle.TabIndex = 0;
+            this.lblEpisodeTitle.Text = "Avsnitt Titel";
+            // 
+            // lnkLblDownloadEpisode
+            // 
+            this.lnkLblDownloadEpisode.AutoSize = true;
+            this.lnkLblDownloadEpisode.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lnkLblDownloadEpisode.Location = new System.Drawing.Point(310, 206);
+            this.lnkLblDownloadEpisode.Name = "lnkLblDownloadEpisode";
+            this.lnkLblDownloadEpisode.Size = new System.Drawing.Size(57, 13);
+            this.lnkLblDownloadEpisode.TabIndex = 1;
+            this.lnkLblDownloadEpisode.TabStop = true;
+            this.lnkLblDownloadEpisode.Text = "Ladda Ner";
+            this.lnkLblDownloadEpisode.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkLblDownloadEpisode_LinkClicked);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1100, 527);
+            this.Controls.Add(this.grpBoxPodPreview);
             this.Controls.Add(this.BtnNewCategory);
             this.Controls.Add(this.txtBoxNewCategory);
             this.Controls.Add(this.cmbBoxInterval);
@@ -185,6 +223,8 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.grpBoxPodPreview.ResumeLayout(false);
+            this.grpBoxPodPreview.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -205,6 +245,9 @@
         private System.Windows.Forms.ComboBox cmbBoxInterval;
         private System.Windows.Forms.TextBox txtBoxNewCategory;
         private System.Windows.Forms.Button BtnNewCategory;
+        private System.Windows.Forms.GroupBox grpBoxPodPreview;
+        private System.Windows.Forms.LinkLabel lnkLblDownloadEpisode;
+        private System.Windows.Forms.Label lblEpisodeTitle;
     }
 }
 

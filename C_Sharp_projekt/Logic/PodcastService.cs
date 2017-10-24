@@ -93,5 +93,11 @@ namespace Logic
             newPodcast.AddPod(url, name, interval, category);
             return newPodcast;
         }
+
+        public string GetEpisodeLink(string titel, string podname)
+        {
+            Podcast selectedPod = podcasts.GetByName(podname);
+            return selectedPod.GetSpecificEpisodeLink(titel);
+        }
     }
 }

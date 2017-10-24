@@ -14,7 +14,7 @@ namespace Logic
         public string _rss_url;
         public string _category;
         public double interval;
-        public List<Episode> podEpisodes= new List<Episode>();
+        public List<Episode> podEpisodes = new List<Episode>();
         public string Name { get; set; }
 
         public Podcast()
@@ -38,6 +38,18 @@ namespace Logic
             timer.Enabled = true;
             timer.AutoReset = true;
             
+        }
+
+        public string GetSpecificEpisodeLink(string title)
+        {
+            foreach (var episode in podEpisodes)
+            {
+                if (episode.ToString().Equals(title))
+                {
+                    return episode.link;
+                }
+            }
+            throw new ApplicationException("Kunde inte hitta länken, försök igen");
         }
 
         private void LookForNewEpisodes(object sender, ElapsedEventArgs e)
@@ -87,7 +99,11 @@ namespace Logic
             }
         }
 
+
+
         private Dictionary<string, string> FindEpisodes => DataService.Get_episode_title_n_link(_rss_url);
+
+        
 
         public class Episode
         {

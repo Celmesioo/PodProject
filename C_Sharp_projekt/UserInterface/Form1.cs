@@ -1,6 +1,7 @@
 ﻿using Logic;
 using System;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 
 namespace UserInterface
@@ -8,6 +9,7 @@ namespace UserInterface
     public partial class Form1 : Form
     {
         private PodcastService podcastService = new PodcastService();
+        private string linkUrl;
         public Form1()
         {
             InitializeComponent();
@@ -70,6 +72,23 @@ namespace UserInterface
                 cmbBoxCategories.Items.Add(item);
             }
             cmbBoxCategories.SelectedIndex = 0;
+        }
+
+        private void treeViewPodcasts_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            if(treeViewPodcasts.SelectedNode.Nodes.Count == 0)
+            {
+                string titel = treeViewPodcasts.SelectedNode.Text;
+                lblEpisodeTitle.Text = titel;
+                string parent = treeViewPodcasts.SelectedNode.Parent.Text;
+                linkUrl = podcastService.GetEpisodeLink(titel, parent);
+            }
+            
+        }
+
+        private void lnkLblDownloadEpisode_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(linkUrl);
         }
     }
 }
