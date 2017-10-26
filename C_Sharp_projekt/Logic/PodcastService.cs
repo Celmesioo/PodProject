@@ -107,5 +107,23 @@ namespace Logic
                 podcasts.RemoveCategory(toDelete);
             }
         }
+
+        public bool EpisodeIsDownloaded(string title, string podcastName)
+        {
+            Podcast selectedPod = podcasts.GetByName(podcastName);
+            return selectedPod.IsEpisodeDownloaded(title);
+        }
+
+        public void DownloadEpisode(string episodeTitle, string podcastName)
+        {
+            Podcast selectedPod = podcasts.GetByName(podcastName);
+            selectedPod.EpisodeIsDownloaded(episodeTitle);
+            podcasts.Download(selectedPod.GetSpecificEpisodeLink(episodeTitle), episodeTitle, podcastName);   
+        }
+
+        public void PlayEpisode(string title, string podName)
+        {
+            podcasts.PlayEpisode(title, podName);
+        }
     }
 }

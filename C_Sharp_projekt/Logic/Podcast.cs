@@ -42,14 +42,17 @@ namespace Logic
 
         public string GetSpecificEpisodeLink(string title)
         {
-            foreach (var episode in podEpisodes)
-            {
-                if (episode.ToString().Equals(title))
-                {
-                    return episode.link;
-                }
-            }
-            throw new ApplicationException("Kunde inte hitta länken, försök igen");
+            return GetEpisodeByTitle(title).link;
+        }
+
+        public void EpisodeIsDownloaded(string title)
+        {
+            GetEpisodeByTitle(title).isDownloaded = true;
+        }
+
+        public bool IsEpisodeDownloaded(string title)
+        {
+            return GetEpisodeByTitle(title).isDownloaded;
         }
 
         private void LookForNewEpisodes(object sender, ElapsedEventArgs e)
@@ -69,6 +72,18 @@ namespace Logic
         public string GetUrl()
         {
             return _rss_url;
+        }
+
+        private Episode GetEpisodeByTitle(string title)
+        {
+            foreach (var episode in podEpisodes)
+            {
+                if (episode.ToString().Equals(title))
+                {
+                    return episode;
+                }
+            }
+            throw new ApplicationException("Kunde inte hitta episoden");
         }
 
         public List<Episode> GetAllEpisodes()
@@ -109,6 +124,7 @@ namespace Logic
         {
             public string title;
             public string link;
+            public bool isDownloaded;
             private bool _hasListenTo = false;
 
             public Episode()
@@ -119,6 +135,7 @@ namespace Logic
             {
                 this.title = title;
                 this.link = link;
+                isDownloaded = false;
             }
 
             public override string ToString()

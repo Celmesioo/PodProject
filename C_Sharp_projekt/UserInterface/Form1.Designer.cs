@@ -42,9 +42,10 @@
             this.txtBoxNewCategory = new System.Windows.Forms.TextBox();
             this.BtnNewCategory = new System.Windows.Forms.Button();
             this.grpBoxPodPreview = new System.Windows.Forms.GroupBox();
-            this.lblEpisodeTitle = new System.Windows.Forms.Label();
             this.lnkLblDownloadEpisode = new System.Windows.Forms.LinkLabel();
+            this.lblEpisodeTitle = new System.Windows.Forms.Label();
             this.BtnDeleteCategory = new System.Windows.Forms.Button();
+            this.BtnPlay = new System.Windows.Forms.Button();
             this.grpBoxPodPreview.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -174,6 +175,7 @@
             // 
             // grpBoxPodPreview
             // 
+            this.grpBoxPodPreview.Controls.Add(this.BtnPlay);
             this.grpBoxPodPreview.Controls.Add(this.lnkLblDownloadEpisode);
             this.grpBoxPodPreview.Controls.Add(this.lblEpisodeTitle);
             this.grpBoxPodPreview.Location = new System.Drawing.Point(634, -1);
@@ -181,15 +183,6 @@
             this.grpBoxPodPreview.Size = new System.Drawing.Size(466, 239);
             this.grpBoxPodPreview.TabIndex = 13;
             this.grpBoxPodPreview.TabStop = false;
-            // 
-            // lblEpisodeTitle
-            // 
-            this.lblEpisodeTitle.AutoSize = true;
-            this.lblEpisodeTitle.Location = new System.Drawing.Point(33, 206);
-            this.lblEpisodeTitle.Name = "lblEpisodeTitle";
-            this.lblEpisodeTitle.Size = new System.Drawing.Size(62, 13);
-            this.lblEpisodeTitle.TabIndex = 0;
-            this.lblEpisodeTitle.Text = "Avsnitt Titel";
             // 
             // lnkLblDownloadEpisode
             // 
@@ -203,6 +196,15 @@
             this.lnkLblDownloadEpisode.Text = "Ladda Ner";
             this.lnkLblDownloadEpisode.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkLblDownloadEpisode_LinkClicked);
             // 
+            // lblEpisodeTitle
+            // 
+            this.lblEpisodeTitle.AutoSize = true;
+            this.lblEpisodeTitle.Location = new System.Drawing.Point(33, 206);
+            this.lblEpisodeTitle.Name = "lblEpisodeTitle";
+            this.lblEpisodeTitle.Size = new System.Drawing.Size(62, 13);
+            this.lblEpisodeTitle.TabIndex = 0;
+            this.lblEpisodeTitle.Text = "Avsnitt Titel";
+            // 
             // BtnDeleteCategory
             // 
             this.BtnDeleteCategory.Location = new System.Drawing.Point(94, 154);
@@ -212,6 +214,16 @@
             this.BtnDeleteCategory.Text = "Radera kategori";
             this.BtnDeleteCategory.UseVisualStyleBackColor = true;
             this.BtnDeleteCategory.Click += new System.EventHandler(this.BtnDeleteCategory_Click);
+            // 
+            // BtnPlay
+            // 
+            this.BtnPlay.Location = new System.Drawing.Point(373, 201);
+            this.BtnPlay.Name = "BtnPlay";
+            this.BtnPlay.Size = new System.Drawing.Size(75, 23);
+            this.BtnPlay.TabIndex = 2;
+            this.BtnPlay.Text = "Spela upp";
+            this.BtnPlay.UseVisualStyleBackColor = true;
+            this.BtnPlay.Click += new System.EventHandler(this.BtnPlay_Click);
             // 
             // Form1
             // 
@@ -262,6 +274,7 @@
         private System.Windows.Forms.LinkLabel lnkLblDownloadEpisode;
         private System.Windows.Forms.Label lblEpisodeTitle;
         private System.Windows.Forms.Button BtnDeleteCategory;
+        private System.Windows.Forms.Button BtnPlay;
     }
 }
 

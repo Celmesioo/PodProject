@@ -9,7 +9,6 @@ namespace UserInterface
     public partial class Form1 : Form
     {
         private PodcastService podcastService = new PodcastService();
-        private string linkUrl;
         public Form1()
         {
             InitializeComponent();
@@ -54,6 +53,7 @@ namespace UserInterface
             UpdateCategories();
             cmbBoxInterval.SelectedIndex = 0;
             grpBoxPodPreview.Visible = false;
+            BtnPlay.Visible = false;
         }
 
         private void BtnNewCategory_Click(object sender, EventArgs e)
@@ -85,17 +85,23 @@ namespace UserInterface
             grpBoxPodPreview.Visible = true;
             if (treeViewPodcasts.SelectedNode.Nodes.Count == 0)
             {
-                string titel = treeViewPodcasts.SelectedNode.Text;
-                lblEpisodeTitle.Text = titel;
-                string parent = treeViewPodcasts.SelectedNode.Parent.Text;
-                linkUrl = podcastService.GetEpisodeLink(titel, parent);
+                lblEpisodeTitle.Text = treeViewPodcasts.SelectedNode.Text;
+
+                if (podcastService.EpisodeIsDownloaded(treeViewPodcasts.SelectedNode.Text, treeViewPodcasts.SelectedNode.Parent.Text))
+                {
+                    BtnPlay.Visible = true;
+                }
+                else
+                {
+                    BtnPlay.Visible = false;
+                }
             }
             
         }
 
         private void lnkLblDownloadEpisode_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(linkUrl);
+            podcastService.DownloadEpisode(treeViewPodcasts.SelectedNode.Text, treeViewPodcasts.SelectedNode.Parent.Text);
         }
 
         private void BtnDeleteCategory_Click(object sender, EventArgs e)
@@ -103,6 +109,11 @@ namespace UserInterface
             string toDelete = cmbBoxCategories.Text;
             podcastService.DeleteCategory(toDelete);
             UpdateCategories();
+        }
+
+        private void BtnPlay_Click(object sender, EventArgs e)
+        {
+            podcastService.PlayEpisode(treeViewPodcasts.SelectedNode.Text, treeViewPodcasts.SelectedNode.Parent.Text);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -7,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
+using System.Diagnostics;
 
 namespace DataAccess
 {
@@ -111,6 +113,7 @@ namespace DataAccess
             public void Add(T item)
             {
                 _items.Add(item);
+                CreateFolder(item.Name);
                 SaveItems();
             }
 
@@ -147,7 +150,33 @@ namespace DataAccess
                 _categories.Remove(toDelete);
                 SaveCategories();
             }
+
+            private void CreateFolder(string folderName)
+            {
+                Directory.CreateDirectory(path + folderName + @"\");
+            }
+
+            public void Download(string url, string title, string podName)
+            {
+
+                using (WebClient wc = new WebClient())
+                {
+                    Uri mp3Uri = new Uri(url);
+                    title = RemoveInvalidCharacters(title);
+                    string fileName = path + podName + @"\" + title + ".mp3";
+                    wc.DownloadFileAsync(mp3Uri, fileName);
+                }
+                SaveItems();
+            }
+
+            public void PlayEpisode(string title, object podName)
+            {
+                title = RemoveInvalidCharacters(title);
+                string fileName = path + podName + @"\" + title + ".mp3";
+                Process.Start(fileName);
+            }
         }
+
         public static Dictionary<string, string> Get_episode_title_n_link(String url)
         {
             var xml = String.Empty;
@@ -171,7 +200,22 @@ namespace DataAccess
             }
             return episodes;
         }
-    }
 
-    
+        
+
+        internal static string RemoveInvalidCharacters(string title)
+        {
+            title = title.Replace("%", string.Empty);
+            title = title.Replace("!", string.Empty);
+            title = title.Replace("#", string.Empty);
+            title = title.Replace("&", string.Empty);
+            title = title.Replace(":", string.Empty);
+            title = title.Replace("+", string.Empty);
+            title = title.Replace(" ", "-");
+            title = title.Replace(".", string.Empty);
+            title = title.Replace("?", string.Empty);
+
+            return title;
+        }
+    }
 }
