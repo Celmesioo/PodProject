@@ -121,9 +121,35 @@ namespace Logic
             podcasts.Download(selectedPod.GetSpecificEpisodeLink(episodeTitle), episodeTitle, podcastName);   
         }
 
+        public string GetPodCategory(string name)
+        {
+            Podcast p = podcasts.GetByName(name);
+            return p._category;
+        }
+
+        public string GetPodInterval(string name)
+        {
+            Podcast p = podcasts.GetByName(name);
+            string toReturn = (p.interval / 60000).ToString();
+            return toReturn;
+        }
+
         public void PlayEpisode(string title, string podName)
         {
             podcasts.PlayEpisode(title, podName);
+        }
+
+        public void SavePodcast(string oldName, string newName, string newCategory, string newInterval)
+        {
+            Podcast p = podcasts.GetByName(oldName);
+            p.Name = newName;
+            p._category = newCategory;
+            p.interval = double.Parse(newInterval) * 60000;
+        }
+
+        public void DeletePodcast(string name)
+        {
+            podcasts.Remove(podcasts.GetByName(name));
         }
     }
 }

@@ -35,6 +35,12 @@ namespace UserInterface
 
         private void BtnShowAllPods_Click(object sender, EventArgs e)
         {
+            UpdateTreeView();
+        }
+
+        private void UpdateTreeView()
+        {
+            treeViewPodcasts.Nodes.Clear();
             var podNames = podcastService.GetAllPodNames();
             for (int i = 0; i < podNames.Length; i++)
             {
@@ -73,9 +79,11 @@ namespace UserInterface
                 return;
             }
             cmbBoxCategories.Items.Clear();
+            cmbBoxNewCategory.Items.Clear();
             foreach (var item in podcastService.GetCategories())
             {
                 cmbBoxCategories.Items.Add(item);
+                cmbBoxNewCategory.Items.Add(item);
             }
             cmbBoxCategories.SelectedIndex = 0;
         }
@@ -85,6 +93,9 @@ namespace UserInterface
             grpBoxPodPreview.Visible = true;
             if (treeViewPodcasts.SelectedNode.Nodes.Count == 0)
             {
+                lblEpisodeTitle.Visible = true;
+                lnkLblDownloadEpisode.Visible = true;
+                grpBoxPodInfo.Visible = false;
                 lblEpisodeTitle.Text = treeViewPodcasts.SelectedNode.Text;
 
                 if (podcastService.EpisodeIsDownloaded(treeViewPodcasts.SelectedNode.Text, treeViewPodcasts.SelectedNode.Parent.Text))
@@ -96,7 +107,50 @@ namespace UserInterface
                     BtnPlay.Visible = false;
                 }
             }
+            else
+            {
+                lblEpisodeTitle.Visible = false;
+                lnkLblDownloadEpisode.Visible = false;
+                SetUpPodInfo();
+            }
             
+        }
+
+        private void SetUpPodInfo()
+        {
+            grpBoxPodInfo.Visible = true;
+            BtnPlay.Visible = false;
+            txtBoxNewPodName.Text = treeViewPodcasts.SelectedNode.Text;
+            string c = podcastService.GetPodCategory(treeViewPodcasts.SelectedNode.Text);
+            string u = podcastService.GetPodInterval(treeViewPodcasts.SelectedNode.Text);
+            cmbBoxNewCategory.SelectedIndex = GetCategoryIndex(c);
+            cmbBoxNewInterval.SelectedIndex = GetIntervalByIndex(u);
+        }
+
+        private int GetIntervalByIndex(string u)
+        {
+            for (int i = 0; i < cmbBoxNewInterval.Items.Count; i++)
+            {
+                string value = cmbBoxNewInterval.GetItemText(cmbBoxNewInterval.Items[i]);
+                if (u.Equals(value))
+                {
+                    return i;
+                }
+            }
+            return 0;
+        }
+
+        private int GetCategoryIndex(string c)
+        {
+            for (int i = 0; i < cmbBoxNewCategory.Items.Count; i++)
+            {
+                string value = cmbBoxNewCategory.GetItemText(cmbBoxNewCategory.Items[i]);
+                if (c.Equals(value))
+                {
+                    return i;
+                }
+            }
+            return 0;
         }
 
         private void lnkLblDownloadEpisode_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -114,6 +168,21 @@ namespace UserInterface
         private void BtnPlay_Click(object sender, EventArgs e)
         {
             podcastService.PlayEpisode(treeViewPodcasts.SelectedNode.Text, treeViewPodcasts.SelectedNode.Parent.Text);
+        }
+
+        private void BtnSavePod_Click(object sender, EventArgs e)
+        {
+            string oldName = treeViewPodcasts.SelectedNode.Text;
+            string newName = txtBoxNewPodName.Text;
+            string newCategory = cmbBoxNewCategory.Text;
+            string newInterval = cmbBoxNewInterval.Text;
+            podcastService.SavePodcast(oldName, newName, newCategory, newInterval);
+        }
+
+        private void BtnDeletePod_Click(object sender, EventArgs e)
+        {
+            podcastService.DeletePodcast(treeViewPodcasts.SelectedNode.Text);
+            UpdateTreeView();
         }
     }
 }

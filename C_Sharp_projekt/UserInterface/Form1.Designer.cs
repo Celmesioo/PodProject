@@ -42,11 +42,20 @@
             this.txtBoxNewCategory = new System.Windows.Forms.TextBox();
             this.BtnNewCategory = new System.Windows.Forms.Button();
             this.grpBoxPodPreview = new System.Windows.Forms.GroupBox();
+            this.BtnPlay = new System.Windows.Forms.Button();
             this.lnkLblDownloadEpisode = new System.Windows.Forms.LinkLabel();
             this.lblEpisodeTitle = new System.Windows.Forms.Label();
             this.BtnDeleteCategory = new System.Windows.Forms.Button();
-            this.BtnPlay = new System.Windows.Forms.Button();
+            this.grpBoxPodInfo = new System.Windows.Forms.GroupBox();
+            this.lblPodName = new System.Windows.Forms.Label();
+            this.txtBoxNewPodName = new System.Windows.Forms.TextBox();
+            this.cmbBoxNewCategory = new System.Windows.Forms.ComboBox();
+            this.cmbBoxNewInterval = new System.Windows.Forms.ComboBox();
+            this.lblNewInterval = new System.Windows.Forms.Label();
+            this.BtnSavePod = new System.Windows.Forms.Button();
+            this.BtnDeletePod = new System.Windows.Forms.Button();
             this.grpBoxPodPreview.SuspendLayout();
+            this.grpBoxPodInfo.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtBoxUrl
@@ -175,6 +184,7 @@
             // 
             // grpBoxPodPreview
             // 
+            this.grpBoxPodPreview.Controls.Add(this.grpBoxPodInfo);
             this.grpBoxPodPreview.Controls.Add(this.BtnPlay);
             this.grpBoxPodPreview.Controls.Add(this.lnkLblDownloadEpisode);
             this.grpBoxPodPreview.Controls.Add(this.lblEpisodeTitle);
@@ -183,6 +193,16 @@
             this.grpBoxPodPreview.Size = new System.Drawing.Size(466, 239);
             this.grpBoxPodPreview.TabIndex = 13;
             this.grpBoxPodPreview.TabStop = false;
+            // 
+            // BtnPlay
+            // 
+            this.BtnPlay.Location = new System.Drawing.Point(373, 201);
+            this.BtnPlay.Name = "BtnPlay";
+            this.BtnPlay.Size = new System.Drawing.Size(75, 23);
+            this.BtnPlay.TabIndex = 2;
+            this.BtnPlay.Text = "Spela upp";
+            this.BtnPlay.UseVisualStyleBackColor = true;
+            this.BtnPlay.Click += new System.EventHandler(this.BtnPlay_Click);
             // 
             // lnkLblDownloadEpisode
             // 
@@ -215,15 +235,88 @@
             this.BtnDeleteCategory.UseVisualStyleBackColor = true;
             this.BtnDeleteCategory.Click += new System.EventHandler(this.BtnDeleteCategory_Click);
             // 
-            // BtnPlay
+            // grpBoxPodInfo
             // 
-            this.BtnPlay.Location = new System.Drawing.Point(373, 201);
-            this.BtnPlay.Name = "BtnPlay";
-            this.BtnPlay.Size = new System.Drawing.Size(75, 23);
-            this.BtnPlay.TabIndex = 2;
-            this.BtnPlay.Text = "Spela upp";
-            this.BtnPlay.UseVisualStyleBackColor = true;
-            this.BtnPlay.Click += new System.EventHandler(this.BtnPlay_Click);
+            this.grpBoxPodInfo.Controls.Add(this.BtnDeletePod);
+            this.grpBoxPodInfo.Controls.Add(this.BtnSavePod);
+            this.grpBoxPodInfo.Controls.Add(this.lblNewInterval);
+            this.grpBoxPodInfo.Controls.Add(this.cmbBoxNewInterval);
+            this.grpBoxPodInfo.Controls.Add(this.cmbBoxNewCategory);
+            this.grpBoxPodInfo.Controls.Add(this.txtBoxNewPodName);
+            this.grpBoxPodInfo.Controls.Add(this.lblPodName);
+            this.grpBoxPodInfo.Location = new System.Drawing.Point(0, 5);
+            this.grpBoxPodInfo.Name = "grpBoxPodInfo";
+            this.grpBoxPodInfo.Size = new System.Drawing.Size(343, 184);
+            this.grpBoxPodInfo.TabIndex = 3;
+            this.grpBoxPodInfo.TabStop = false;
+            // 
+            // lblPodName
+            // 
+            this.lblPodName.AutoSize = true;
+            this.lblPodName.Location = new System.Drawing.Point(7, 15);
+            this.lblPodName.Name = "lblPodName";
+            this.lblPodName.Size = new System.Drawing.Size(54, 13);
+            this.lblPodName.TabIndex = 0;
+            this.lblPodName.Text = "PodName";
+            // 
+            // txtBoxNewPodName
+            // 
+            this.txtBoxNewPodName.Location = new System.Drawing.Point(76, 12);
+            this.txtBoxNewPodName.Name = "txtBoxNewPodName";
+            this.txtBoxNewPodName.Size = new System.Drawing.Size(100, 20);
+            this.txtBoxNewPodName.TabIndex = 1;
+            // 
+            // cmbBoxNewCategory
+            // 
+            this.cmbBoxNewCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbBoxNewCategory.FormattingEnabled = true;
+            this.cmbBoxNewCategory.Location = new System.Drawing.Point(206, 11);
+            this.cmbBoxNewCategory.Name = "cmbBoxNewCategory";
+            this.cmbBoxNewCategory.Size = new System.Drawing.Size(121, 21);
+            this.cmbBoxNewCategory.TabIndex = 15;
+            // 
+            // cmbBoxNewInterval
+            // 
+            this.cmbBoxNewInterval.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbBoxNewInterval.FormattingEnabled = true;
+            this.cmbBoxNewInterval.Items.AddRange(new object[] {
+            "5",
+            "10",
+            "30",
+            "60"});
+            this.cmbBoxNewInterval.Location = new System.Drawing.Point(76, 57);
+            this.cmbBoxNewInterval.Name = "cmbBoxNewInterval";
+            this.cmbBoxNewInterval.Size = new System.Drawing.Size(121, 21);
+            this.cmbBoxNewInterval.TabIndex = 16;
+            // 
+            // lblNewInterval
+            // 
+            this.lblNewInterval.AutoSize = true;
+            this.lblNewInterval.Location = new System.Drawing.Point(7, 60);
+            this.lblNewInterval.Name = "lblNewInterval";
+            this.lblNewInterval.Size = new System.Drawing.Size(63, 13);
+            this.lblNewInterval.TabIndex = 17;
+            this.lblNewInterval.Text = "Intrvall(min):";
+            // 
+            // BtnSavePod
+            // 
+            this.BtnSavePod.Location = new System.Drawing.Point(36, 111);
+            this.BtnSavePod.Name = "BtnSavePod";
+            this.BtnSavePod.Size = new System.Drawing.Size(75, 23);
+            this.BtnSavePod.TabIndex = 18;
+            this.BtnSavePod.Text = "Spara Pod";
+            this.BtnSavePod.UseVisualStyleBackColor = true;
+            this.BtnSavePod.Click += new System.EventHandler(this.BtnSavePod_Click);
+            // 
+            // BtnDeletePod
+            // 
+            this.BtnDeletePod.Location = new System.Drawing.Point(254, 121);
+            this.BtnDeletePod.Name = "BtnDeletePod";
+            this.BtnDeletePod.Size = new System.Drawing.Size(73, 23);
+            this.BtnDeletePod.TabIndex = 19;
+            this.BtnDeletePod.Text = "Radera";
+            this.BtnDeletePod.UseVisualStyleBackColor = true;
+            this.BtnDeletePod.Click += new System.EventHandler(this.BtnDeletePod_Click);
             // 
             // Form1
             // 
@@ -250,6 +343,8 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.grpBoxPodPreview.ResumeLayout(false);
             this.grpBoxPodPreview.PerformLayout();
+            this.grpBoxPodInfo.ResumeLayout(false);
+            this.grpBoxPodInfo.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -275,6 +370,14 @@
         private System.Windows.Forms.Label lblEpisodeTitle;
         private System.Windows.Forms.Button BtnDeleteCategory;
         private System.Windows.Forms.Button BtnPlay;
+        private System.Windows.Forms.GroupBox grpBoxPodInfo;
+        private System.Windows.Forms.Button BtnDeletePod;
+        private System.Windows.Forms.Button BtnSavePod;
+        private System.Windows.Forms.Label lblNewInterval;
+        private System.Windows.Forms.ComboBox cmbBoxNewInterval;
+        private System.Windows.Forms.ComboBox cmbBoxNewCategory;
+        private System.Windows.Forms.TextBox txtBoxNewPodName;
+        private System.Windows.Forms.Label lblPodName;
     }
 }
 
