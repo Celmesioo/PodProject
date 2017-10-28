@@ -19,6 +19,7 @@ namespace DataAccess
         public interface IPod
         {
             string Name { get; set; }
+            string Category { get; set; }
         }
 
         public abstract class XmlRepository<T> where T : IPod
@@ -110,6 +111,20 @@ namespace DataAccess
                 return _categories;
             }
 
+            public List<T> GetPodsByCategory(string category)
+            {
+                var podList = from item in _items
+                              where item.Category.Equals(category)
+                              select item;
+
+                List<T> p = new List<T>();
+                foreach (var item in podList)
+                {
+                    p.Add(item);
+                }
+                return p;
+            }
+
             public void Add(T item)
             {
                 _items.Add(item);
@@ -147,8 +162,19 @@ namespace DataAccess
 
             public void RemoveCategory(string toDelete)
             {
+                ChangeToDefaultCategory(toDelete);
                 _categories.Remove(toDelete);
+                SaveItems();
                 SaveCategories();
+            }
+
+            private void ChangeToDefaultCategory(string toDelete)
+            {
+                List<T> t = GetPodsByCategory(toDelete);
+                foreach (var item in t)
+                {
+                    item.Category = "Övrigt";
+                }
             }
 
             private void CreateFolder(string folderName)
@@ -177,6 +203,23 @@ namespace DataAccess
             }
         }
 
+        public static string GetDescription(string url)
+        {
+            var xml = String.Empty;
+            using (var client = new WebClient())
+            {
+                client.Encoding = Encoding.UTF8;
+                xml = client.DownloadString(url);
+            }
+
+            var dom = new XmlDocument();
+            dom.LoadXml(xml);
+            var baseNode = dom.DocumentElement.SelectSingleNode("channel");
+            string description = baseNode.SelectSingleNode("description").InnerText;
+
+            return description;
+        }
+
         public static Dictionary<string, string> Get_episode_title_n_link(String url)
         {
             var xml = String.Empty;
@@ -195,7 +238,6 @@ namespace DataAccess
             {
                 String title = item.SelectSingleNode("title").InnerText;
                 String link = item.SelectSingleNode("link").InnerText;
-
                 episodes.Add(title, link);
             }
             return episodes;

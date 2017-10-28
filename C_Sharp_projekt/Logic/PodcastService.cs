@@ -124,7 +124,7 @@ namespace Logic
         public string GetPodCategory(string name)
         {
             Podcast p = podcasts.GetByName(name);
-            return p._category;
+            return p.Category;
         }
 
         public string GetPodInterval(string name)
@@ -132,6 +132,12 @@ namespace Logic
             Podcast p = podcasts.GetByName(name);
             string toReturn = (p.interval / 60000).ToString();
             return toReturn;
+        }
+
+        public string GetDescription(string podName)
+        {
+            Podcast selectedPod = podcasts.GetByName(podName);
+            return selectedPod.description;
         }
 
         public void PlayEpisode(string title, string podName)
@@ -143,13 +149,25 @@ namespace Logic
         {
             Podcast p = podcasts.GetByName(oldName);
             p.Name = newName;
-            p._category = newCategory;
+            p.Category = newCategory;
             p.interval = double.Parse(newInterval) * 60000;
         }
 
         public void DeletePodcast(string name)
         {
             podcasts.Remove(podcasts.GetByName(name));
+        }
+
+        public string[] FilterByCategory(string category)
+        {
+            List<Podcast> tempPodList = podcasts.GetPodsByCategory(category);
+            string[] podNames = new string[tempPodList.Count];
+            for (int i = 0; i < podNames.Length; i++)
+            {
+                podNames[i] = tempPodList[i].GetName();
+            }
+
+            return podNames;
         }
     }
 }

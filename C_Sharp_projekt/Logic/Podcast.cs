@@ -12,10 +12,11 @@ namespace Logic
     {
         Timer timer = new Timer();
         public string _rss_url;
-        public string _category;
         public double interval;
+        public string description;
         public List<Episode> podEpisodes = new List<Episode>();
         public string Name { get; set; }
+        public string Category { get; set; }
 
         public Podcast()
         {
@@ -27,8 +28,14 @@ namespace Logic
             _rss_url = url;
             this.interval = interval*60000;
             Name = name;
-            _category = category;
+            Category = category;
+            AddDescription();
             AddEpisodes();
+        }
+
+        private void AddDescription()
+        {
+            description = DataService.GetDescription(_rss_url);
         }
 
         public void ActivateUpdateInterval()
@@ -90,6 +97,7 @@ namespace Logic
         {
             return podEpisodes;
         }
+
 
         public void AddEpisodes()
         {
