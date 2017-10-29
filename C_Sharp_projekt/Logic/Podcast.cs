@@ -8,59 +8,58 @@ using System.Timers;
 
 namespace Logic
 {
-    public class Podcast : DataService.IPod
+    public class Podcast : Repository.IPod
     {
-        Timer timer = new Timer();
-        public string _rss_url;
+        public string rss_url;
         public double interval;
         public string description;
         public List<Episode> podEpisodes = new List<Episode>();
         public string Name { get; set; }
         public string Category { get; set; }
 
+        private Timer timer = new Timer();
+
         public Podcast()
         {
 
         }
 
-        public void AddPod(string url, string name, double interval, string category)
+        public Podcast(string url, string name, double interval, string category)
         {
-            _rss_url = url;
+            rss_url = url;
             this.interval = interval*60000;
             Name = name;
             Category = category;
             AddDescription();
             AddEpisodes();
+            ActivateUpdateInterval();
         }
 
-        private void AddDescription()
-        {
-            description = DataService.GetDescription(_rss_url);
-        }
+        public List<Episode> GetAllEpisodes => podEpisodes;
 
-        public void ActivateUpdateInterval()
+        internal void ActivateUpdateInterval()
         {
             timer.Interval = interval;
             timer.Elapsed += LookForNewEpisodes;
             timer.Enabled = true;
-            timer.AutoReset = true;
-            
+            timer.AutoReset = true; 
         }
 
-        public string GetSpecificEpisodeLink(string title)
+        internal void NewUrl(string newUrl)
         {
-            return GetEpisodeByTitle(title).link;
+            if (rss_url != newUrl)
+            {
+                rss_url = newUrl;
+                podEpisodes.Clear();
+                AddEpisodes();
+            }
         }
 
-        public void EpisodeIsDownloaded(string title)
-        {
-            GetEpisodeByTitle(title).isDownloaded = true;
-        }
+        internal string GetSpecificEpisodeLink(string title) => GetEpisodeByTitle(title).link;
 
-        public bool IsEpisodeDownloaded(string title)
-        {
-            return GetEpisodeByTitle(title).isDownloaded;
-        }
+        internal void SetEpisodeIsDownloaded(string title) => GetEpisodeByTitle(title).isDownloaded = true;
+
+        internal bool IsEpisodeDownloaded(string title) => GetEpisodeByTitle(title).isDownloaded;
 
         private void LookForNewEpisodes(object sender, ElapsedEventArgs e)
         {
@@ -72,37 +71,10 @@ namespace Logic
             }
         }
 
-        public string GetName()
-        {
-            return Name;
-        }
-        public string GetUrl()
-        {
-            return _rss_url;
-        }
-
-        private Episode GetEpisodeByTitle(string title)
-        {
-            foreach (var episode in podEpisodes)
-            {
-                if (episode.ToString().Equals(title))
-                {
-                    return episode;
-                }
-            }
-            throw new ApplicationException("Kunde inte hitta episoden");
-        }
-
-        public List<Episode> GetAllEpisodes()
-        {
-            return podEpisodes;
-        }
-
-
-        public void AddEpisodes()
+        private void AddEpisodes()
         {
             var episodes = FindEpisodes;
-            foreach (KeyValuePair<string,string> item in episodes)
+            foreach (KeyValuePair<string, string> item in episodes)
             {
                 podEpisodes.Add(new Episode(item.Key, item.Value));
             }
@@ -122,9 +94,21 @@ namespace Logic
             }
         }
 
+        private Episode GetEpisodeByTitle(string title)
+        {
+            foreach (var episode in podEpisodes)
+            {
+                if (episode.ToString().Equals(title))
+                {
+                    return episode;
+                }
+            }
+            throw new ApplicationException("Kunde inte hitta episoden");
+        }
 
+        private void AddDescription() => description = DataService.GetDescription(rss_url);
 
-        private Dictionary<string, string> FindEpisodes => DataService.Get_episode_title_n_link(_rss_url);
+        private Dictionary<string, string> FindEpisodes => DataService.Get_episode_title_n_link(rss_url);
 
         
 
@@ -148,12 +132,10 @@ namespace Logic
 
             public override string ToString()
             {
-
                 return $"Episod: {title}";
             }
         }
+
+        
     }
-
-
-   
 }

@@ -45,17 +45,27 @@
             this.cmbBoxFilterByCategory = new System.Windows.Forms.ComboBox();
             this.BtnFilterByCategory = new System.Windows.Forms.Button();
             this.tbEpisodeInfo = new System.Windows.Forms.TabPage();
-            this.lnkLblDownloadEpisode = new System.Windows.Forms.LinkLabel();
-            this.BtnPlay = new System.Windows.Forms.Button();
             this.lblEpisodeTitle = new System.Windows.Forms.Label();
+            this.BtnPlay = new System.Windows.Forms.Button();
+            this.lnkLblDownloadEpisode = new System.Windows.Forms.LinkLabel();
             this.tbPodInfo = new System.Windows.Forms.TabPage();
-            this.lblpodcast = new System.Windows.Forms.Label();
-            this.lblDescription = new System.Windows.Forms.Label();
-            this.tbCntrPod = new System.Windows.Forms.TabControl();
             this.BtnEditPod = new System.Windows.Forms.Button();
+            this.lblDescription = new System.Windows.Forms.Label();
+            this.lblpodcast = new System.Windows.Forms.Label();
+            this.tbCntrPod = new System.Windows.Forms.TabControl();
+            this.pnlEditPod = new System.Windows.Forms.Panel();
+            this.txtBoxNewUrl = new System.Windows.Forms.TextBox();
+            this.cmbBoxNewCategory = new System.Windows.Forms.ComboBox();
+            this.cmbBoxNewInterval = new System.Windows.Forms.ComboBox();
+            this.BtnSave = new System.Windows.Forms.Button();
+            this.BtnCancel = new System.Windows.Forms.Button();
+            this.BtnDelete = new System.Windows.Forms.Button();
+            this.cmbBoxCategoryDeleteOrEdit = new System.Windows.Forms.ComboBox();
+            this.BtnEditCategory = new System.Windows.Forms.Button();
             this.tbEpisodeInfo.SuspendLayout();
             this.tbPodInfo.SuspendLayout();
             this.tbCntrPod.SuspendLayout();
+            this.pnlEditPod.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtBoxUrl
@@ -169,14 +179,14 @@
             // 
             this.txtBoxNewCategory.Location = new System.Drawing.Point(32, 474);
             this.txtBoxNewCategory.Name = "txtBoxNewCategory";
-            this.txtBoxNewCategory.Size = new System.Drawing.Size(100, 20);
+            this.txtBoxNewCategory.Size = new System.Drawing.Size(121, 20);
             this.txtBoxNewCategory.TabIndex = 11;
             // 
             // BtnNewCategory
             // 
-            this.BtnNewCategory.Location = new System.Drawing.Point(148, 474);
+            this.BtnNewCategory.Location = new System.Drawing.Point(159, 470);
             this.BtnNewCategory.Name = "BtnNewCategory";
-            this.BtnNewCategory.Size = new System.Drawing.Size(104, 23);
+            this.BtnNewCategory.Size = new System.Drawing.Size(104, 24);
             this.BtnNewCategory.TabIndex = 12;
             this.BtnNewCategory.Text = "Lägg till kategori";
             this.BtnNewCategory.UseVisualStyleBackColor = true;
@@ -184,11 +194,11 @@
             // 
             // BtnDeleteCategory
             // 
-            this.BtnDeleteCategory.Location = new System.Drawing.Point(94, 154);
+            this.BtnDeleteCategory.Location = new System.Drawing.Point(238, 400);
             this.BtnDeleteCategory.Name = "BtnDeleteCategory";
-            this.BtnDeleteCategory.Size = new System.Drawing.Size(100, 23);
+            this.BtnDeleteCategory.Size = new System.Drawing.Size(73, 23);
             this.BtnDeleteCategory.TabIndex = 14;
-            this.BtnDeleteCategory.Text = "Radera kategori";
+            this.BtnDeleteCategory.Text = "Radera";
             this.BtnDeleteCategory.UseVisualStyleBackColor = true;
             this.BtnDeleteCategory.Click += new System.EventHandler(this.BtnDeleteCategory_Click);
             // 
@@ -218,10 +228,30 @@
             this.tbEpisodeInfo.Controls.Add(this.lnkLblDownloadEpisode);
             this.tbEpisodeInfo.Location = new System.Drawing.Point(4, 22);
             this.tbEpisodeInfo.Name = "tbEpisodeInfo";
-            this.tbEpisodeInfo.Size = new System.Drawing.Size(452, 150);
+            this.tbEpisodeInfo.Size = new System.Drawing.Size(452, 205);
             this.tbEpisodeInfo.TabIndex = 2;
             this.tbEpisodeInfo.Text = "Avsnitt Info";
             this.tbEpisodeInfo.UseVisualStyleBackColor = true;
+            // 
+            // lblEpisodeTitle
+            // 
+            this.lblEpisodeTitle.AutoSize = true;
+            this.lblEpisodeTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEpisodeTitle.Location = new System.Drawing.Point(12, 12);
+            this.lblEpisodeTitle.Name = "lblEpisodeTitle";
+            this.lblEpisodeTitle.Size = new System.Drawing.Size(80, 15);
+            this.lblEpisodeTitle.TabIndex = 0;
+            this.lblEpisodeTitle.Text = "Avsnitt Titel";
+            // 
+            // BtnPlay
+            // 
+            this.BtnPlay.Location = new System.Drawing.Point(106, 72);
+            this.BtnPlay.Name = "BtnPlay";
+            this.BtnPlay.Size = new System.Drawing.Size(75, 23);
+            this.BtnPlay.TabIndex = 2;
+            this.BtnPlay.Text = "Spela upp";
+            this.BtnPlay.UseVisualStyleBackColor = true;
+            this.BtnPlay.Click += new System.EventHandler(this.BtnPlay_Click);
             // 
             // lnkLblDownloadEpisode
             // 
@@ -234,26 +264,6 @@
             this.lnkLblDownloadEpisode.TabStop = true;
             this.lnkLblDownloadEpisode.Text = "Ladda Ner";
             this.lnkLblDownloadEpisode.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkLblDownloadEpisode_LinkClicked);
-            // 
-            // BtnPlay
-            // 
-            this.BtnPlay.Location = new System.Drawing.Point(106, 72);
-            this.BtnPlay.Name = "BtnPlay";
-            this.BtnPlay.Size = new System.Drawing.Size(75, 23);
-            this.BtnPlay.TabIndex = 2;
-            this.BtnPlay.Text = "Spela upp";
-            this.BtnPlay.UseVisualStyleBackColor = true;
-            this.BtnPlay.Click += new System.EventHandler(this.BtnPlay_Click);
-            // 
-            // lblEpisodeTitle
-            // 
-            this.lblEpisodeTitle.AutoSize = true;
-            this.lblEpisodeTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEpisodeTitle.Location = new System.Drawing.Point(12, 12);
-            this.lblEpisodeTitle.Name = "lblEpisodeTitle";
-            this.lblEpisodeTitle.Size = new System.Drawing.Size(80, 15);
-            this.lblEpisodeTitle.TabIndex = 0;
-            this.lblEpisodeTitle.Text = "Avsnitt Titel";
             // 
             // tbPodInfo
             // 
@@ -268,15 +278,15 @@
             this.tbPodInfo.Text = "Pod Info";
             this.tbPodInfo.UseVisualStyleBackColor = true;
             // 
-            // lblpodcast
+            // BtnEditPod
             // 
-            this.lblpodcast.AutoSize = true;
-            this.lblpodcast.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblpodcast.Location = new System.Drawing.Point(6, 3);
-            this.lblpodcast.Name = "lblpodcast";
-            this.lblpodcast.Size = new System.Drawing.Size(110, 16);
-            this.lblpodcast.TabIndex = 6;
-            this.lblpodcast.Text = "Podcast Name";
+            this.BtnEditPod.Location = new System.Drawing.Point(333, 7);
+            this.BtnEditPod.Name = "BtnEditPod";
+            this.BtnEditPod.Size = new System.Drawing.Size(75, 23);
+            this.BtnEditPod.TabIndex = 7;
+            this.BtnEditPod.Text = "Ändra";
+            this.BtnEditPod.UseVisualStyleBackColor = true;
+            this.BtnEditPod.Click += new System.EventHandler(this.BtnEditPod_Click);
             // 
             // lblDescription
             // 
@@ -286,6 +296,16 @@
             this.lblDescription.Size = new System.Drawing.Size(58, 13);
             this.lblDescription.TabIndex = 5;
             this.lblDescription.Text = "description";
+            // 
+            // lblpodcast
+            // 
+            this.lblpodcast.AutoSize = true;
+            this.lblpodcast.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblpodcast.Location = new System.Drawing.Point(6, 3);
+            this.lblpodcast.Name = "lblpodcast";
+            this.lblpodcast.Size = new System.Drawing.Size(110, 16);
+            this.lblpodcast.TabIndex = 6;
+            this.lblpodcast.Text = "Podcast Name";
             // 
             // tbCntrPod
             // 
@@ -297,21 +317,106 @@
             this.tbCntrPod.Size = new System.Drawing.Size(460, 231);
             this.tbCntrPod.TabIndex = 17;
             // 
-            // BtnEditPod
+            // pnlEditPod
             // 
-            this.BtnEditPod.Location = new System.Drawing.Point(333, 7);
-            this.BtnEditPod.Name = "BtnEditPod";
-            this.BtnEditPod.Size = new System.Drawing.Size(75, 23);
-            this.BtnEditPod.TabIndex = 7;
-            this.BtnEditPod.Text = "Ändra";
-            this.BtnEditPod.UseVisualStyleBackColor = true;
-            this.BtnEditPod.Click += new System.EventHandler(this.BtnEditPod_Click);
+            this.pnlEditPod.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlEditPod.Controls.Add(this.BtnDelete);
+            this.pnlEditPod.Controls.Add(this.BtnCancel);
+            this.pnlEditPod.Controls.Add(this.BtnSave);
+            this.pnlEditPod.Controls.Add(this.cmbBoxNewInterval);
+            this.pnlEditPod.Controls.Add(this.cmbBoxNewCategory);
+            this.pnlEditPod.Controls.Add(this.txtBoxNewUrl);
+            this.pnlEditPod.Location = new System.Drawing.Point(326, 247);
+            this.pnlEditPod.Name = "pnlEditPod";
+            this.pnlEditPod.Size = new System.Drawing.Size(302, 235);
+            this.pnlEditPod.TabIndex = 18;
+            // 
+            // txtBoxNewUrl
+            // 
+            this.txtBoxNewUrl.Location = new System.Drawing.Point(86, 22);
+            this.txtBoxNewUrl.Name = "txtBoxNewUrl";
+            this.txtBoxNewUrl.Size = new System.Drawing.Size(100, 20);
+            this.txtBoxNewUrl.TabIndex = 0;
+            // 
+            // cmbBoxNewCategory
+            // 
+            this.cmbBoxNewCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbBoxNewCategory.FormattingEnabled = true;
+            this.cmbBoxNewCategory.Location = new System.Drawing.Point(86, 65);
+            this.cmbBoxNewCategory.Name = "cmbBoxNewCategory";
+            this.cmbBoxNewCategory.Size = new System.Drawing.Size(121, 21);
+            this.cmbBoxNewCategory.TabIndex = 1;
+            // 
+            // cmbBoxNewInterval
+            // 
+            this.cmbBoxNewInterval.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbBoxNewInterval.FormattingEnabled = true;
+            this.cmbBoxNewInterval.Items.AddRange(new object[] {
+            "5",
+            "10",
+            "30",
+            "60"});
+            this.cmbBoxNewInterval.Location = new System.Drawing.Point(86, 102);
+            this.cmbBoxNewInterval.Name = "cmbBoxNewInterval";
+            this.cmbBoxNewInterval.Size = new System.Drawing.Size(121, 21);
+            this.cmbBoxNewInterval.TabIndex = 2;
+            // 
+            // BtnSave
+            // 
+            this.BtnSave.Location = new System.Drawing.Point(26, 194);
+            this.BtnSave.Name = "BtnSave";
+            this.BtnSave.Size = new System.Drawing.Size(75, 23);
+            this.BtnSave.TabIndex = 3;
+            this.BtnSave.Text = "Spara";
+            this.BtnSave.UseVisualStyleBackColor = true;
+            this.BtnSave.Click += new System.EventHandler(this.BtnSave_Click);
+            // 
+            // BtnCancel
+            // 
+            this.BtnCancel.Location = new System.Drawing.Point(121, 194);
+            this.BtnCancel.Name = "BtnCancel";
+            this.BtnCancel.Size = new System.Drawing.Size(75, 23);
+            this.BtnCancel.TabIndex = 4;
+            this.BtnCancel.Text = "Avbryt";
+            this.BtnCancel.UseVisualStyleBackColor = true;
+            this.BtnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
+            // 
+            // BtnDelete
+            // 
+            this.BtnDelete.Location = new System.Drawing.Point(218, 194);
+            this.BtnDelete.Name = "BtnDelete";
+            this.BtnDelete.Size = new System.Drawing.Size(75, 23);
+            this.BtnDelete.TabIndex = 5;
+            this.BtnDelete.Text = "Radera";
+            this.BtnDelete.UseVisualStyleBackColor = true;
+            this.BtnDelete.Click += new System.EventHandler(this.BtnDelete_Click);
+            // 
+            // cmbBoxCategoryDeleteOrEdit
+            // 
+            this.cmbBoxCategoryDeleteOrEdit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbBoxCategoryDeleteOrEdit.FormattingEnabled = true;
+            this.cmbBoxCategoryDeleteOrEdit.Location = new System.Drawing.Point(32, 402);
+            this.cmbBoxCategoryDeleteOrEdit.Name = "cmbBoxCategoryDeleteOrEdit";
+            this.cmbBoxCategoryDeleteOrEdit.Size = new System.Drawing.Size(121, 21);
+            this.cmbBoxCategoryDeleteOrEdit.TabIndex = 19;
+            // 
+            // BtnEditCategory
+            // 
+            this.BtnEditCategory.Location = new System.Drawing.Point(159, 400);
+            this.BtnEditCategory.Name = "BtnEditCategory";
+            this.BtnEditCategory.Size = new System.Drawing.Size(73, 23);
+            this.BtnEditCategory.TabIndex = 20;
+            this.BtnEditCategory.Text = "Ändra";
+            this.BtnEditCategory.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1100, 527);
+            this.Controls.Add(this.BtnEditCategory);
+            this.Controls.Add(this.cmbBoxCategoryDeleteOrEdit);
+            this.Controls.Add(this.pnlEditPod);
             this.Controls.Add(this.tbCntrPod);
             this.Controls.Add(this.BtnFilterByCategory);
             this.Controls.Add(this.cmbBoxFilterByCategory);
@@ -337,6 +442,8 @@
             this.tbPodInfo.ResumeLayout(false);
             this.tbPodInfo.PerformLayout();
             this.tbCntrPod.ResumeLayout(false);
+            this.pnlEditPod.ResumeLayout(false);
+            this.pnlEditPod.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -369,6 +476,15 @@
         private System.Windows.Forms.Label lblpodcast;
         private System.Windows.Forms.TabControl tbCntrPod;
         private System.Windows.Forms.Button BtnEditPod;
+        private System.Windows.Forms.Panel pnlEditPod;
+        private System.Windows.Forms.ComboBox cmbBoxNewCategory;
+        private System.Windows.Forms.TextBox txtBoxNewUrl;
+        private System.Windows.Forms.Button BtnDelete;
+        private System.Windows.Forms.Button BtnCancel;
+        private System.Windows.Forms.Button BtnSave;
+        private System.Windows.Forms.ComboBox cmbBoxNewInterval;
+        private System.Windows.Forms.ComboBox cmbBoxCategoryDeleteOrEdit;
+        private System.Windows.Forms.Button BtnEditCategory;
     }
 }
 

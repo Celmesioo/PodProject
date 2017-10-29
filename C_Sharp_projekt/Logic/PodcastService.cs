@@ -1,10 +1,6 @@
 ﻿using DataAccess;
 using System.Collections.Generic;
 using System;
-using System.Net;
-using System.Xml;
-using System.Linq;
-using System.Xml.Serialization;
 
 namespace Logic
 {
@@ -14,10 +10,9 @@ namespace Logic
         private DataService dataService = new DataService();
         private Validate validator = new Validate();
         private PodcastRepository podcasts = new PodcastRepository();
-        private List<string> categories = new List<string>();
 
 
-        public class PodcastRepository : DataService.XmlRepository<Podcast>
+        public class PodcastRepository : Repository.XmlRepository<Podcast>
         {
             public PodcastRepository() : base("Podcasts.xml")
             {
@@ -25,21 +20,12 @@ namespace Logic
             }
         }
 
-        public void AddDefaultCategory()
-        {
-            podcasts.AddCategory("Övrigt");
-        }
-
         public void AddCategory(string input)
         {
-            if (validator.Category_does_not_exist(input, categories))
+            if (validator.Category_does_not_exist(input, podcasts.GetCategories()))
             {
                 podcasts.AddCategory(input);
             }
-        }
-        public List<String> GetCategories()
-        {
-            return podcasts.GetCategories();
         }
 
         public void LoadPodcasts()
@@ -60,24 +46,10 @@ namespace Logic
             
         }
 
-        public string[] GetAllPodNames()
-        {
-            string[] podNames = new string[podcasts.GetListCount()];
-            List<Podcast> tempPodList = podcasts.GetAllInList();
-            for (int i = 0; i < podNames.Length; i++)
-            {
-                podNames[i] = tempPodList[i].GetName();
-            }
-
-            return podNames;
-        }
-
         public string[] GetPodTitels(string name)
         {
-            List<Podcast> tempPodList = podcasts.GetAllInList();
-            var podcast = tempPodList.First(n => n.GetName() == name);
+            var episodes = GetPodcastByName(name).GetAllEpisodes;
 
-            var episodes = podcast.GetAllEpisodes();
             string[] episodesArray = new string[episodes.Count]; 
             for (int i = 0; i < episodes.Count; i++)
             {
@@ -85,19 +57,6 @@ namespace Logic
             }
 
             return episodesArray;
-        }
-
-        private Podcast CreatePodcast(string url, string name, double interval, string category)
-        {
-            Podcast newPodcast = new Podcast();
-            newPodcast.AddPod(url, name, interval, category);
-            return newPodcast;
-        }
-
-        public string GetEpisodeLink(string titel, string podname)
-        {
-            Podcast selectedPod = podcasts.GetByName(podname);
-            return selectedPod.GetSpecificEpisodeLink(titel);
         }
 
         public void DeleteCategory(string toDelete)
@@ -108,66 +67,63 @@ namespace Logic
             }
         }
 
-        public bool EpisodeIsDownloaded(string title, string podcastName)
-        {
-            Podcast selectedPod = podcasts.GetByName(podcastName);
-            return selectedPod.IsEpisodeDownloaded(title);
-        }
+        public bool EpisodeIsDownloaded(string title, string podcastName) => GetPodcastByName(podcastName).IsEpisodeDownloaded(title);
 
         public void DownloadEpisode(string episodeTitle, string podcastName)
         {
-            Podcast selectedPod = podcasts.GetByName(podcastName);
-            selectedPod.EpisodeIsDownloaded(episodeTitle);
-            podcasts.Download(selectedPod.GetSpecificEpisodeLink(episodeTitle), episodeTitle, podcastName);   
+            Podcast podcast = GetPodcastByName(podcastName);
+            podcast.SetEpisodeIsDownloaded(episodeTitle);
+            podcasts.Download(podcast.GetSpecificEpisodeLink(episodeTitle), episodeTitle, podcastName);   
         }
 
-        public string GetPodCategory(string name)
+        public void SavePodcast(string oldName, string newUrl, string newCategory, string newInterval)
         {
-            Podcast p = podcasts.GetByName(name);
-            return p.Category;
-        }
-
-        public string GetPodInterval(string name)
-        {
-            Podcast p = podcasts.GetByName(name);
-            string toReturn = (p.interval / 60000).ToString();
-            return toReturn;
-        }
-
-        public string GetDescription(string podName)
-        {
-            Podcast selectedPod = podcasts.GetByName(podName);
-            return selectedPod.description;
-        }
-
-        public void PlayEpisode(string title, string podName)
-        {
-            podcasts.PlayEpisode(title, podName);
-        }
-
-        public void SavePodcast(string oldName, string newName, string newCategory, string newInterval)
-        {
-            Podcast p = podcasts.GetByName(oldName);
-            p.Name = newName;
+            Podcast p = GetPodcastByName(oldName);
             p.Category = newCategory;
             p.interval = double.Parse(newInterval) * 60000;
+            p.NewUrl(newUrl);
         }
 
-        public void DeletePodcast(string name)
+        public void AddDefaultCategory() => podcasts.AddCategory("Övrigt");
+
+        public void DeletePodcast(string name) => podcasts.Remove(GetPodcastByName(name));
+
+        public void PlayEpisode(string title, string podName) => podcasts.PlayEpisode(title, podName);
+
+        public string GetEpisodeLink(string titel, string podcastName) => GetPodcastByName(podcastName).GetSpecificEpisodeLink(titel);
+
+        public string GetPodcastUrl(string name) => GetPodcastByName(name).rss_url;
+
+        public string GetPodCategory(string name) => GetPodcastByName(name).Category;
+
+        public string GetPodInterval(string name) => (GetPodcastByName(name).interval / 60000).ToString();
+
+        public string GetDescription(string podcastName) => GetPodcastByName(podcastName).description;
+
+        public string[] GetAllPodNames() => CreateArrayOfPodNames(podcasts.GetAllInList());
+
+        public string[] FilterByCategory(string category) => CreateArrayOfPodNames(podcasts.GetPodsByCategory(category));
+
+        public List<String> GetCategories() => podcasts.GetCategories();
+
+
+        private Podcast CreatePodcast(string url, string name, double interval, string category)
         {
-            podcasts.Remove(podcasts.GetByName(name));
+            Podcast newPodcast = new Podcast(url, name, interval, category);
+            return newPodcast;
         }
 
-        public string[] FilterByCategory(string category)
+        private String[] CreateArrayOfPodNames(List<Podcast> podList)
         {
-            List<Podcast> tempPodList = podcasts.GetPodsByCategory(category);
-            string[] podNames = new string[tempPodList.Count];
+            string[] podNames = new string[podList.Count];
             for (int i = 0; i < podNames.Length; i++)
             {
-                podNames[i] = tempPodList[i].GetName();
+                podNames[i] = podList[i].Name;
             }
 
             return podNames;
         }
+
+        private Podcast GetPodcastByName(string name) => podcasts.GetByName(name);
     }
 }
