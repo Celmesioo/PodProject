@@ -97,18 +97,46 @@ namespace DataAccess
                 using (WebClient wc = new WebClient())
                 {
                     Uri mp3Uri = new Uri(url);
-                    title = RemoveInvalidCharacters(title);
+                    title =  RemoveInvalidCharacters(title);
                     string fileName = path + podName + @"\" + title + ".mp3";
                     wc.DownloadFileAsync(mp3Uri, fileName);
                 }
                 SaveItems();
             }
 
-            public void PlayEpisode(string title, object podName)
+            public void PlayEpisode(string title, object podName, bool hasBeenPlayed)
             {
                 title = RemoveInvalidCharacters(title);
                 string fileName = path + podName + @"\" + title + ".mp3";
                 Process.Start(fileName);
+                if (!hasBeenPlayed)
+                {
+                    SaveItems();
+                }
+            }
+
+            public void EditCategoryName(string newName, string oldName)
+            {
+                for (int i = 0; i < _categories.Count; i++)
+                {
+                    if (_categories[i].Equals(oldName))
+                    {
+                        _categories[i] = newName;
+                    }
+                }
+                AssignNewCategory(newName, GetPodsByCategory(oldName));
+                SaveCategories();
+                SaveItems();
+            }
+
+            public List<string> GetAllPodNames()
+            {
+                List<string> names = new List<string>();
+                foreach (var item in _items)
+                {
+                    names.Add(item.Name);
+                }
+                return names;
             }
 
             public int GetListCount() => _items.Count;
@@ -123,6 +151,14 @@ namespace DataAccess
                 foreach (var item in t)
                 {
                     item.Category = "Övrigt";
+                }
+            }
+
+            private void AssignNewCategory(string newName, List<T> list)
+            {
+                foreach (var item in list)
+                {
+                    item.Category = newName;
                 }
             }
 

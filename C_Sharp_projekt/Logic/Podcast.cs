@@ -1,9 +1,6 @@
 ﻿using DataAccess;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Timers;
 
 namespace Logic
@@ -61,12 +58,14 @@ namespace Logic
 
         internal bool IsEpisodeDownloaded(string title) => GetEpisodeByTitle(title).isDownloaded;
 
+        internal bool EpisodeHasBeenPlayed(string title) => GetEpisodeByTitle(title).hasListenTo;
+
         private void LookForNewEpisodes(object sender, ElapsedEventArgs e)
         {
             var episodes = FindEpisodes;
             if (episodes.Count > podEpisodes.Count)
             {
-                int NumberOfNewEpisodes = FindEpisodes.Count - podEpisodes.Count;
+                int NumberOfNewEpisodes = episodes.Count - podEpisodes.Count;
                 AddNewEpisode(episodes, NumberOfNewEpisodes);
             }
         }
@@ -106,6 +105,11 @@ namespace Logic
             throw new ApplicationException("Kunde inte hitta episoden");
         }
 
+        internal void UserHaveListenToEpisode(string title)
+        {
+            GetEpisodeByTitle(title).hasListenTo = true;
+        }
+
         private void AddDescription() => description = DataService.GetDescription(rss_url);
 
         private Dictionary<string, string> FindEpisodes => DataService.Get_episode_title_n_link(rss_url);
@@ -117,7 +121,7 @@ namespace Logic
             public string title;
             public string link;
             public bool isDownloaded;
-            private bool _hasListenTo = false;
+            public bool hasListenTo;
 
             public Episode()
             {
@@ -128,6 +132,7 @@ namespace Logic
                 this.title = title;
                 this.link = link;
                 isDownloaded = false;
+                hasListenTo  = false;
             }
 
             public override string ToString()

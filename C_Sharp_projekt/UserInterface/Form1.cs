@@ -1,9 +1,7 @@
 ﻿using Logic;
 using System;
 using System.Windows.Forms;
-using System.Diagnostics;
-using System.Linq;
-
+using System.Threading.Tasks;
 
 namespace UserInterface
 {
@@ -15,9 +13,9 @@ namespace UserInterface
             InitializeComponent(); 
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        async private void Form1_Load(object sender, EventArgs e)
         {
-            podcastService.LoadPodcasts();
+            await Task.Run(() => podcastService.LoadPodcasts());
             SetStartUpInterface();
         }
 
@@ -28,6 +26,7 @@ namespace UserInterface
             tbCntrPod.Visible = false;
             BtnPlay.Visible = false;
             pnlEditPod.Visible = false;
+            checkBoxHasListenTo.Enabled = false;
         }
 
         private void UpdateCategories()
@@ -120,10 +119,15 @@ namespace UserInterface
             if (podcastService.EpisodeIsDownloaded(treeViewPodcasts.SelectedNode.Text, lblpodcast.Text))
             {
                 BtnPlay.Visible = true;
+                if (podcastService.HasListenTo(treeViewPodcasts.SelectedNode.Text, lblpodcast.Text))
+                {
+                    checkBoxHasListenTo.Checked = true;
+                }
             }
             else
             {
                 BtnPlay.Visible = false;
+                checkBoxHasListenTo.Checked = false;
             }
         }
 
@@ -138,7 +142,7 @@ namespace UserInterface
 
         private void AddPodcastDescription()
         {
-            string description = podcastService.GetDescription(lblpodcast.Text);
+            string description =  podcastService.GetDescription(lblpodcast.Text);
             description = AddNewLines(description);
             lblDescription.Text = description;
         }
@@ -189,9 +193,12 @@ namespace UserInterface
 
         /* All On-click methods below */
 
-        private void lnkLblDownloadEpisode_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        async private void lnkLblDownloadEpisode_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            podcastService.DownloadEpisode(treeViewPodcasts.SelectedNode.Text, treeViewPodcasts.SelectedNode.Parent.Text);
+            Task t = podcastService.DownloadEpisode(treeViewPodcasts.SelectedNode.Text, treeViewPodcasts.SelectedNode.Parent.Text);
+            await t;
+            MessageBox.Show("Nedladdningen är klar");
+            BtnPlay.Visible = true;
         }
 
         private void BtnShowAllPods_Click(object sender, EventArgs e)
@@ -207,15 +214,16 @@ namespace UserInterface
                 podcastService.DeleteCategory(toDelete);
                 UpdateCategories();
             }
-            catch (Exception ex)
+            catch (Validate.InvalidInputException ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.Message);
             }
         }
 
         private void BtnPlay_Click(object sender, EventArgs e)
         {
             podcastService.PlayEpisode(treeViewPodcasts.SelectedNode.Text, treeViewPodcasts.SelectedNode.Parent.Text);
+            checkBoxHasListenTo.Checked = true;
         }
 
         private void BtnFilterByCategory_Click(object sender, EventArgs e)
@@ -245,7 +253,7 @@ namespace UserInterface
             pnlEditPod.Visible = false;
         }
 
-        private void BtnAddRss_Click(object sender, EventArgs e)
+        async private void BtnAddRss_Click(object sender, EventArgs e)
         {
             try
             {
@@ -254,13 +262,15 @@ namespace UserInterface
                 String interval = cmbBoxInterval.Text;
                 String category = cmbBoxCategories.Text;
 
-                podcastService.AddPodcast(rss_url, rss_name, interval, category);
+                Task t = podcastService.AddPodcast(rss_url, rss_name, interval, category);
                 txtBoxRssName.Clear();
                 txtBoxUrl.Clear();
+                await t;
+                MessageBox.Show("Podcasten är nu tillagd.");
             }
-            catch (Exception ex)
+            catch (Validate.InvalidInputException ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -273,10 +283,10 @@ namespace UserInterface
                 UpdateCategories();
                 txtBoxNewCategory.Clear();
             }
-            catch (Exception ex)
+            catch (Validate.InvalidInputException ex)
             {
 
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.Message);
             }
         }
         private void BtnSave_Click(object sender, EventArgs e)
@@ -288,13 +298,43 @@ namespace UserInterface
                 string newCategory = cmbBoxNewCategory.Text;
                 string newInterval = cmbBoxNewInterval.Text;
                 podcastService.SavePodcast(oldName, newUrl, newCategory, newInterval);
-                pnlEditPod.Visible = false;
             }
-            catch (Exception ex)
+            catch (Validate.InvalidInputException ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.Message);
+
+            }
+            finally
+            {
+                pnlEditPod.Visible = false;
             }
         }
 
+        private void BtnEditCategory_Click(object sender, EventArgs e)
+        {
+            pnlEditCategory.Visible = true;
+        }
+
+        private void BtnSaveCategory_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                podcastService.SaveCategory(txtBoxNewCategoryName.Text, cmbBoxCategoryDeleteOrEdit.Text);
+                UpdateCategories();
+                txtBoxNewCategoryName.Clear();
+                pnlEditCategory.Visible = false;
+            }
+            catch (Validate.InvalidInputException ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void BtnCancelCategory_Click(object sender, EventArgs e)
+        {
+            txtBoxNewCategoryName.Clear();
+            pnlEditCategory.Visible = false;
+        }
     }
 }

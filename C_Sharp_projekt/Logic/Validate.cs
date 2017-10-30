@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Logic
 {
-    internal class Validate
+    public class Validate
     {
-        internal bool Input_not_empty(string input)
+
+        public class InvalidInputException : Exception
         {
-            if (input.Equals(string.Empty))
+            public InvalidInputException(string message)
             {
-                throw new Exception();
+                Message = message;
             }
-            return true;
+
+            public string Message { get; }
         }
 
         internal bool Input_not_empty(params string[] inputs)
@@ -23,7 +22,7 @@ namespace Logic
             {
                 if (item.Equals(string.Empty))
                 {
-                    throw new Exception();
+                    throw new InvalidInputException("En eller flera textrutor är tomma, kontollera och försök igen.");
                 }
             }
             return true;
@@ -36,14 +35,14 @@ namespace Logic
             return isParseble;
         }
 
-        internal bool Category_does_not_exist(string input, List<String> list)
+        internal bool Input_does_not_exist_in_list(string input, List<String> list)
         {
             foreach (var item in list)
             {
                 string itemAsUpper = item.ToUpper();
                 if (itemAsUpper.Equals(input.ToUpper()))
                 {
-                    throw new ApplicationException("Den categorin finns redan");
+                    throw new InvalidInputException("En kategori med det namnet existerar reda, vänligen välj något annat.");
                 }
             }
             return true;
@@ -54,7 +53,7 @@ namespace Logic
             string default_category = "övrigt";
             if (default_category.ToUpper().Equals(toDelete.ToUpper()))
             {
-                throw new ApplicationException("Övrigt kategorin kan inte raderas");
+                throw new InvalidInputException("Övrigt kategorin kan inte raderas eller ändras");
             }
 
             return true;

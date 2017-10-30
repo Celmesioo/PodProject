@@ -45,6 +45,7 @@
             this.cmbBoxFilterByCategory = new System.Windows.Forms.ComboBox();
             this.BtnFilterByCategory = new System.Windows.Forms.Button();
             this.tbEpisodeInfo = new System.Windows.Forms.TabPage();
+            this.checkBoxHasListenTo = new System.Windows.Forms.CheckBox();
             this.lblEpisodeTitle = new System.Windows.Forms.Label();
             this.BtnPlay = new System.Windows.Forms.Button();
             this.lnkLblDownloadEpisode = new System.Windows.Forms.LinkLabel();
@@ -54,18 +55,26 @@
             this.lblpodcast = new System.Windows.Forms.Label();
             this.tbCntrPod = new System.Windows.Forms.TabControl();
             this.pnlEditPod = new System.Windows.Forms.Panel();
-            this.txtBoxNewUrl = new System.Windows.Forms.TextBox();
-            this.cmbBoxNewCategory = new System.Windows.Forms.ComboBox();
-            this.cmbBoxNewInterval = new System.Windows.Forms.ComboBox();
-            this.BtnSave = new System.Windows.Forms.Button();
-            this.BtnCancel = new System.Windows.Forms.Button();
             this.BtnDelete = new System.Windows.Forms.Button();
+            this.BtnCancel = new System.Windows.Forms.Button();
+            this.BtnSave = new System.Windows.Forms.Button();
+            this.cmbBoxNewInterval = new System.Windows.Forms.ComboBox();
+            this.cmbBoxNewCategory = new System.Windows.Forms.ComboBox();
+            this.txtBoxNewUrl = new System.Windows.Forms.TextBox();
             this.cmbBoxCategoryDeleteOrEdit = new System.Windows.Forms.ComboBox();
             this.BtnEditCategory = new System.Windows.Forms.Button();
+            this.pnlEditCategory = new System.Windows.Forms.Panel();
+            this.txtBoxNewCategoryName = new System.Windows.Forms.TextBox();
+            this.BtnSaveCategory = new System.Windows.Forms.Button();
+            this.BtnCancelCategory = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.tbEpisodeInfo.SuspendLayout();
             this.tbPodInfo.SuspendLayout();
             this.tbCntrPod.SuspendLayout();
             this.pnlEditPod.SuspendLayout();
+            this.pnlEditCategory.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtBoxUrl
@@ -223,6 +232,7 @@
             // 
             // tbEpisodeInfo
             // 
+            this.tbEpisodeInfo.Controls.Add(this.checkBoxHasListenTo);
             this.tbEpisodeInfo.Controls.Add(this.lblEpisodeTitle);
             this.tbEpisodeInfo.Controls.Add(this.BtnPlay);
             this.tbEpisodeInfo.Controls.Add(this.lnkLblDownloadEpisode);
@@ -232,6 +242,16 @@
             this.tbEpisodeInfo.TabIndex = 2;
             this.tbEpisodeInfo.Text = "Avsnitt Info";
             this.tbEpisodeInfo.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxHasListenTo
+            // 
+            this.checkBoxHasListenTo.AutoSize = true;
+            this.checkBoxHasListenTo.Location = new System.Drawing.Point(349, 8);
+            this.checkBoxHasListenTo.Name = "checkBoxHasListenTo";
+            this.checkBoxHasListenTo.Size = new System.Drawing.Size(77, 17);
+            this.checkBoxHasListenTo.TabIndex = 3;
+            this.checkBoxHasListenTo.Text = "Uppspelad";
+            this.checkBoxHasListenTo.UseVisualStyleBackColor = true;
             // 
             // lblEpisodeTitle
             // 
@@ -320,32 +340,49 @@
             // pnlEditPod
             // 
             this.pnlEditPod.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlEditPod.Controls.Add(this.label3);
+            this.pnlEditPod.Controls.Add(this.label2);
+            this.pnlEditPod.Controls.Add(this.label1);
             this.pnlEditPod.Controls.Add(this.BtnDelete);
             this.pnlEditPod.Controls.Add(this.BtnCancel);
             this.pnlEditPod.Controls.Add(this.BtnSave);
             this.pnlEditPod.Controls.Add(this.cmbBoxNewInterval);
             this.pnlEditPod.Controls.Add(this.cmbBoxNewCategory);
             this.pnlEditPod.Controls.Add(this.txtBoxNewUrl);
-            this.pnlEditPod.Location = new System.Drawing.Point(326, 247);
+            this.pnlEditPod.Location = new System.Drawing.Point(634, 8);
             this.pnlEditPod.Name = "pnlEditPod";
-            this.pnlEditPod.Size = new System.Drawing.Size(302, 235);
+            this.pnlEditPod.Size = new System.Drawing.Size(460, 507);
             this.pnlEditPod.TabIndex = 18;
             // 
-            // txtBoxNewUrl
+            // BtnDelete
             // 
-            this.txtBoxNewUrl.Location = new System.Drawing.Point(86, 22);
-            this.txtBoxNewUrl.Name = "txtBoxNewUrl";
-            this.txtBoxNewUrl.Size = new System.Drawing.Size(100, 20);
-            this.txtBoxNewUrl.TabIndex = 0;
+            this.BtnDelete.Location = new System.Drawing.Point(189, 148);
+            this.BtnDelete.Name = "BtnDelete";
+            this.BtnDelete.Size = new System.Drawing.Size(75, 23);
+            this.BtnDelete.TabIndex = 5;
+            this.BtnDelete.Text = "Radera";
+            this.BtnDelete.UseVisualStyleBackColor = true;
+            this.BtnDelete.Click += new System.EventHandler(this.BtnDelete_Click);
             // 
-            // cmbBoxNewCategory
+            // BtnCancel
             // 
-            this.cmbBoxNewCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbBoxNewCategory.FormattingEnabled = true;
-            this.cmbBoxNewCategory.Location = new System.Drawing.Point(86, 65);
-            this.cmbBoxNewCategory.Name = "cmbBoxNewCategory";
-            this.cmbBoxNewCategory.Size = new System.Drawing.Size(121, 21);
-            this.cmbBoxNewCategory.TabIndex = 1;
+            this.BtnCancel.Location = new System.Drawing.Point(299, 148);
+            this.BtnCancel.Name = "BtnCancel";
+            this.BtnCancel.Size = new System.Drawing.Size(75, 23);
+            this.BtnCancel.TabIndex = 4;
+            this.BtnCancel.Text = "Avbryt";
+            this.BtnCancel.UseVisualStyleBackColor = true;
+            this.BtnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
+            // 
+            // BtnSave
+            // 
+            this.BtnSave.Location = new System.Drawing.Point(86, 148);
+            this.BtnSave.Name = "BtnSave";
+            this.BtnSave.Size = new System.Drawing.Size(75, 23);
+            this.BtnSave.TabIndex = 3;
+            this.BtnSave.Text = "Spara";
+            this.BtnSave.UseVisualStyleBackColor = true;
+            this.BtnSave.Click += new System.EventHandler(this.BtnSave_Click);
             // 
             // cmbBoxNewInterval
             // 
@@ -356,40 +393,26 @@
             "10",
             "30",
             "60"});
-            this.cmbBoxNewInterval.Location = new System.Drawing.Point(86, 102);
+            this.cmbBoxNewInterval.Location = new System.Drawing.Point(299, 65);
             this.cmbBoxNewInterval.Name = "cmbBoxNewInterval";
             this.cmbBoxNewInterval.Size = new System.Drawing.Size(121, 21);
             this.cmbBoxNewInterval.TabIndex = 2;
             // 
-            // BtnSave
+            // cmbBoxNewCategory
             // 
-            this.BtnSave.Location = new System.Drawing.Point(26, 194);
-            this.BtnSave.Name = "BtnSave";
-            this.BtnSave.Size = new System.Drawing.Size(75, 23);
-            this.BtnSave.TabIndex = 3;
-            this.BtnSave.Text = "Spara";
-            this.BtnSave.UseVisualStyleBackColor = true;
-            this.BtnSave.Click += new System.EventHandler(this.BtnSave_Click);
+            this.cmbBoxNewCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbBoxNewCategory.FormattingEnabled = true;
+            this.cmbBoxNewCategory.Location = new System.Drawing.Point(86, 65);
+            this.cmbBoxNewCategory.Name = "cmbBoxNewCategory";
+            this.cmbBoxNewCategory.Size = new System.Drawing.Size(121, 21);
+            this.cmbBoxNewCategory.TabIndex = 1;
             // 
-            // BtnCancel
+            // txtBoxNewUrl
             // 
-            this.BtnCancel.Location = new System.Drawing.Point(121, 194);
-            this.BtnCancel.Name = "BtnCancel";
-            this.BtnCancel.Size = new System.Drawing.Size(75, 23);
-            this.BtnCancel.TabIndex = 4;
-            this.BtnCancel.Text = "Avbryt";
-            this.BtnCancel.UseVisualStyleBackColor = true;
-            this.BtnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
-            // 
-            // BtnDelete
-            // 
-            this.BtnDelete.Location = new System.Drawing.Point(218, 194);
-            this.BtnDelete.Name = "BtnDelete";
-            this.BtnDelete.Size = new System.Drawing.Size(75, 23);
-            this.BtnDelete.TabIndex = 5;
-            this.BtnDelete.Text = "Radera";
-            this.BtnDelete.UseVisualStyleBackColor = true;
-            this.BtnDelete.Click += new System.EventHandler(this.BtnDelete_Click);
+            this.txtBoxNewUrl.Location = new System.Drawing.Point(86, 22);
+            this.txtBoxNewUrl.Name = "txtBoxNewUrl";
+            this.txtBoxNewUrl.Size = new System.Drawing.Size(334, 20);
+            this.txtBoxNewUrl.TabIndex = 0;
             // 
             // cmbBoxCategoryDeleteOrEdit
             // 
@@ -408,12 +431,79 @@
             this.BtnEditCategory.TabIndex = 20;
             this.BtnEditCategory.Text = "Ändra";
             this.BtnEditCategory.UseVisualStyleBackColor = true;
+            this.BtnEditCategory.Click += new System.EventHandler(this.BtnEditCategory_Click);
+            // 
+            // pnlEditCategory
+            // 
+            this.pnlEditCategory.Controls.Add(this.BtnCancelCategory);
+            this.pnlEditCategory.Controls.Add(this.BtnSaveCategory);
+            this.pnlEditCategory.Controls.Add(this.txtBoxNewCategoryName);
+            this.pnlEditCategory.Location = new System.Drawing.Point(32, 296);
+            this.pnlEditCategory.Name = "pnlEditCategory";
+            this.pnlEditCategory.Size = new System.Drawing.Size(288, 198);
+            this.pnlEditCategory.TabIndex = 21;
+            this.pnlEditCategory.Visible = false;
+            // 
+            // txtBoxNewCategoryName
+            // 
+            this.txtBoxNewCategoryName.Location = new System.Drawing.Point(87, 80);
+            this.txtBoxNewCategoryName.Name = "txtBoxNewCategoryName";
+            this.txtBoxNewCategoryName.Size = new System.Drawing.Size(103, 20);
+            this.txtBoxNewCategoryName.TabIndex = 0;
+            // 
+            // BtnSaveCategory
+            // 
+            this.BtnSaveCategory.Location = new System.Drawing.Point(33, 149);
+            this.BtnSaveCategory.Name = "BtnSaveCategory";
+            this.BtnSaveCategory.Size = new System.Drawing.Size(75, 23);
+            this.BtnSaveCategory.TabIndex = 1;
+            this.BtnSaveCategory.Text = "Spara";
+            this.BtnSaveCategory.UseVisualStyleBackColor = true;
+            this.BtnSaveCategory.Click += new System.EventHandler(this.BtnSaveCategory_Click);
+            // 
+            // BtnCancelCategory
+            // 
+            this.BtnCancelCategory.Location = new System.Drawing.Point(141, 148);
+            this.BtnCancelCategory.Name = "BtnCancelCategory";
+            this.BtnCancelCategory.Size = new System.Drawing.Size(75, 23);
+            this.BtnCancelCategory.TabIndex = 2;
+            this.BtnCancelCategory.Text = "Avbryt";
+            this.BtnCancelCategory.UseVisualStyleBackColor = true;
+            this.BtnCancelCategory.Click += new System.EventHandler(this.BtnCancelCategory_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(26, 22);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(44, 13);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Rss-Url:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(21, 68);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(49, 13);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "Kategori:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(226, 70);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(67, 13);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "Intervall(Min)";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1100, 527);
+            this.Controls.Add(this.pnlEditCategory);
             this.Controls.Add(this.BtnEditCategory);
             this.Controls.Add(this.cmbBoxCategoryDeleteOrEdit);
             this.Controls.Add(this.pnlEditPod);
@@ -444,6 +534,8 @@
             this.tbCntrPod.ResumeLayout(false);
             this.pnlEditPod.ResumeLayout(false);
             this.pnlEditPod.PerformLayout();
+            this.pnlEditCategory.ResumeLayout(false);
+            this.pnlEditCategory.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -485,6 +577,14 @@
         private System.Windows.Forms.ComboBox cmbBoxNewInterval;
         private System.Windows.Forms.ComboBox cmbBoxCategoryDeleteOrEdit;
         private System.Windows.Forms.Button BtnEditCategory;
+        private System.Windows.Forms.CheckBox checkBoxHasListenTo;
+        private System.Windows.Forms.Panel pnlEditCategory;
+        private System.Windows.Forms.Button BtnCancelCategory;
+        private System.Windows.Forms.Button BtnSaveCategory;
+        private System.Windows.Forms.TextBox txtBoxNewCategoryName;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
     }
 }
 

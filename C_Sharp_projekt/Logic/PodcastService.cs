@@ -1,6 +1,7 @@
 ﻿using DataAccess;
 using System.Collections.Generic;
 using System;
+using System.Threading.Tasks;
 
 namespace Logic
 {
@@ -16,13 +17,13 @@ namespace Logic
         {
             public PodcastRepository() : base("Podcasts.xml")
             {
- 
+
             }
         }
 
         public void AddCategory(string input)
         {
-            if (validator.Category_does_not_exist(input, podcasts.GetCategories()))
+            if (validator.Input_does_not_exist_in_list(input, podcasts.GetCategories()) && validator.Input_not_empty(input))
             {
                 podcasts.AddCategory(input);
             }
@@ -36,21 +37,21 @@ namespace Logic
             }
         }
 
-        public void AddPodcast(string url, string name, string interval, string category)
+        async public Task AddPodcast(string url, string name, string interval, string category)
         {
-            if (validator.Input_not_empty(url, name) && validator.Interval_is_valid(interval))
+            if (validator.Input_not_empty(url, name) && validator.Interval_is_valid(interval) && validator.Input_does_not_exist_in_list(name, podcasts.GetAllPodNames()))
             {
                 double intervalAsDouble = double.Parse(interval);
-                podcasts.Add(CreatePodcast(url, name, intervalAsDouble, category));
+                await Task.Run(() => podcasts.Add(CreatePodcast(url, name, intervalAsDouble, category)));
             }
-            
+
         }
 
         public string[] GetPodTitels(string name)
         {
             var episodes = GetPodcastByName(name).GetAllEpisodes;
 
-            string[] episodesArray = new string[episodes.Count]; 
+            string[] episodesArray = new string[episodes.Count];
             for (int i = 0; i < episodes.Count; i++)
             {
                 episodesArray[i] = episodes[i].ToString();
@@ -69,26 +70,38 @@ namespace Logic
 
         public bool EpisodeIsDownloaded(string title, string podcastName) => GetPodcastByName(podcastName).IsEpisodeDownloaded(title);
 
-        public void DownloadEpisode(string episodeTitle, string podcastName)
+        async public Task DownloadEpisode(string episodeTitle, string podcastName)
         {
             Podcast podcast = GetPodcastByName(podcastName);
             podcast.SetEpisodeIsDownloaded(episodeTitle);
-            podcasts.Download(podcast.GetSpecificEpisodeLink(episodeTitle), episodeTitle, podcastName);   
+            await Task.Run (()=> podcasts.Download(podcast.GetSpecificEpisodeLink(episodeTitle), episodeTitle, podcastName));
         }
 
         public void SavePodcast(string oldName, string newUrl, string newCategory, string newInterval)
         {
-            Podcast p = GetPodcastByName(oldName);
-            p.Category = newCategory;
-            p.interval = double.Parse(newInterval) * 60000;
-            p.NewUrl(newUrl);
+            if (validator.Input_not_empty(newUrl))
+            {
+                Podcast p = GetPodcastByName(oldName);
+                p.Category = newCategory;
+                p.interval = double.Parse(newInterval) * 60000;
+                p.NewUrl(newUrl);
+            }
+        }
+
+        public void PlayEpisode(string title, string podName)
+        {
+            Podcast p = GetPodcastByName(podName);
+            bool hasListenEarlier = p.EpisodeHasBeenPlayed(title);
+            if (!hasListenEarlier)
+            {
+                p.UserHaveListenToEpisode(title);
+            }
+            podcasts.PlayEpisode(title, podName, hasListenEarlier); 
         }
 
         public void AddDefaultCategory() => podcasts.AddCategory("Övrigt");
 
         public void DeletePodcast(string name) => podcasts.Remove(GetPodcastByName(name));
-
-        public void PlayEpisode(string title, string podName) => podcasts.PlayEpisode(title, podName);
 
         public string GetEpisodeLink(string titel, string podcastName) => GetPodcastByName(podcastName).GetSpecificEpisodeLink(titel);
 
@@ -104,8 +117,9 @@ namespace Logic
 
         public string[] FilterByCategory(string category) => CreateArrayOfPodNames(podcasts.GetPodsByCategory(category));
 
-        public List<String> GetCategories() => podcasts.GetCategories();
+        public bool HasListenTo(string title, string podName) => GetPodcastByName(podName).EpisodeHasBeenPlayed(title);
 
+        public List<String> GetCategories() => podcasts.GetCategories();
 
         private Podcast CreatePodcast(string url, string name, double interval, string category)
         {
@@ -125,5 +139,13 @@ namespace Logic
         }
 
         private Podcast GetPodcastByName(string name) => podcasts.GetByName(name);
+
+        public void SaveCategory(string newName, string oldName)
+        {
+            if (validator.If_not_default_category(oldName) && validator.Input_does_not_exist_in_list(newName, podcasts.GetCategories()) && validator.Input_not_empty(newName))
+            {
+                podcasts.EditCategoryName(newName, oldName);
+            }
+        }
     }
 }
