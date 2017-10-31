@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace DataAccess
@@ -92,21 +93,22 @@ namespace DataAccess
                 SaveCategories();
             }
 
-            public void Download(string url, string title, string podName)
+            async public Task Download(string url, string title, string podName)
             {
                 using (WebClient wc = new WebClient())
                 {
                     Uri mp3Uri = new Uri(url);
                     title =  RemoveInvalidCharacters(title);
                     string fileName = path + podName + @"\" + title + ".mp3";
-                    wc.DownloadFileAsync(mp3Uri, fileName);
+                    await Task.Run(()=> wc.DownloadFile(mp3Uri, fileName));
                 }
                 SaveItems();
             }
 
-            public void PlayEpisode(string title, object podName, bool hasBeenPlayed)
+            public void PlayEpisode(string title, string podName, bool hasBeenPlayed)
             {
                 title = RemoveInvalidCharacters(title);
+                podName = RemoveInvalidCharacters(podName);
                 string fileName = path + podName + @"\" + title + ".mp3";
                 Process.Start(fileName);
                 if (!hasBeenPlayed)

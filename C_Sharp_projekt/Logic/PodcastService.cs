@@ -74,7 +74,7 @@ namespace Logic
         {
             Podcast podcast = GetPodcastByName(podcastName);
             podcast.SetEpisodeIsDownloaded(episodeTitle);
-            await Task.Run (()=> podcasts.Download(podcast.GetSpecificEpisodeLink(episodeTitle), episodeTitle, podcastName));
+            await  podcasts.Download(podcast.GetSpecificEpisodeLink(episodeTitle), episodeTitle, podcastName);
         }
 
         public void SavePodcast(string oldName, string newUrl, string newCategory, string newInterval)
