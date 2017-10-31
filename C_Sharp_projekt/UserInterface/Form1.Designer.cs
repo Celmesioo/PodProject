@@ -330,6 +330,7 @@
             this.tbPodInfo.Controls.Add(this.BtnEditPod);
             this.tbPodInfo.Controls.Add(this.lblDescription);
             this.tbPodInfo.Controls.Add(this.lblpodcast);
+            this.tbPodInfo.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.tbPodInfo.Location = new System.Drawing.Point(4, 22);
             this.tbPodInfo.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
             this.tbPodInfo.Name = "tbPodInfo";
@@ -385,7 +386,8 @@
             // 
             // pnlEditPod
             // 
-            this.pnlEditPod.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlEditPod.BackColor = System.Drawing.Color.OldLace;
+            this.pnlEditPod.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.pnlEditPod.Controls.Add(this.label3);
             this.pnlEditPod.Controls.Add(this.label2);
             this.pnlEditPod.Controls.Add(this.label1);
@@ -395,10 +397,10 @@
             this.pnlEditPod.Controls.Add(this.cmbBoxNewInterval);
             this.pnlEditPod.Controls.Add(this.cmbBoxNewCategory);
             this.pnlEditPod.Controls.Add(this.txtBoxNewUrl);
-            this.pnlEditPod.Location = new System.Drawing.Point(634, 12);
+            this.pnlEditPod.Location = new System.Drawing.Point(630, 12);
             this.pnlEditPod.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
             this.pnlEditPod.Name = "pnlEditPod";
-            this.pnlEditPod.Size = new System.Drawing.Size(460, 506);
+            this.pnlEditPod.Size = new System.Drawing.Size(464, 506);
             this.pnlEditPod.TabIndex = 18;
             // 
             // label3
@@ -524,6 +526,8 @@
             // 
             // pnlEditCategory
             // 
+            this.pnlEditCategory.BackColor = System.Drawing.Color.OldLace;
+            this.pnlEditCategory.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.pnlEditCategory.Controls.Add(this.BtnCancelCategory);
             this.pnlEditCategory.Controls.Add(this.BtnSaveCategory);
             this.pnlEditCategory.Controls.Add(this.txtBoxNewCategoryName);
